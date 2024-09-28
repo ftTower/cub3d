@@ -77,26 +77,25 @@ void    t_file_print_info(t_file *file, const char **colors)
     if (file->nb_line < 0)
         printf("%s  ❌ %s",colors[3], colors[8]);
     else
-        printf("%s %-3ld lines%s",colors[3], file->nb_line, colors[8]);
+        printf("%s %-5.5ld lines%s",colors[3], file->nb_line, colors[8]);
 }
 
-// void    t_file_print_path(t_file *file, const char **colors)
-// {
-//     if (file)
-// }
-
-void    t_file_print_line(t_file *file, const char **colors, int grade)
+void    t_file_print_line(t_file *file, const char **colors, int grade, int len)
 {
     t_line *current;
     char *buf;
     ssize_t index;
+    ssize_t compare;
 
     buf = NULL;
+    compare = 0;
     current = file->lines;
     while(current)
     {
-        // if (buf && buf[0] != '\n')
-            printf("\n%s  %-3ld %s",colors[0], current->pos,colors[8]);
+        if (len > 0 && compare > len)
+            break;
+        compare++;
+        printf("\n%s %-4ld %s",colors[0], current->pos,colors[8]);
         buf = ft_substr(current->content, 0, grade);
         index = -1;
         while(buf[++index])
@@ -124,22 +123,36 @@ void    t_file_print(t_file *file, t_print grade)
     if (grade == PRINT_LIGHT)
     {
         t_file_print_info(file, colors);
-        printf("%s | %-15.15s%s",colors[4], file->path, colors[8]);
+        printf("%s | %-26.26s%s",colors[4], file->path, colors[8]);
         printf("\n");
     }
     else if (grade == PRINT_MEDIUM)
     {
         t_file_print_info(file, colors);
-        printf("%s | %-22.22s%s",colors[4], file->path, colors[8]);
-        t_file_print_line(file, colors, 43);
+        printf("%s | %-26.26s%s",colors[4], file->path, colors[8]);
+        t_file_print_line(file, colors, 49, 20);
         printf("\n");
     }
     else if (grade == PRINT_FULL)
     {
         t_file_print_info(file, colors);
         printf("%s | %-26.26s%s",colors[4], file->path, colors[8]);
-        t_file_print_line(file, colors, 100);
+        t_file_print_line(file, colors, 100, -1);
         printf("\n");
     }
     
+}
+
+void    t_binder_print(t_binder *binder)
+{
+    t_file *current;
+    printf("%s\n", binder->name);
+
+    current = binder->files;
+    while(current)
+    {
+        t_file_print(current, PRINT_LIGHT);
+        current = current->next;
+    }
+    printf("\n");
 }

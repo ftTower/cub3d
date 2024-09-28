@@ -40,6 +40,7 @@ typedef struct s_file
 
 typedef struct s_binder
 {
+    char   *name;
     t_file *files;
 
 
