@@ -1,16 +1,16 @@
 
 SRC_DIR		=	src
-GNL_DIR		= 	getNextLine
+REF_DIR		=	Refile/src
+GNL_DIR		= 	Refile/getNextLine
 BUILD_DIR	=	build
 NAME		=	cub3d
 CFLAG		=	-Wall -Wextra -Werror -I./includes -g3
 
 SRC			=	$(SRC_DIR)/main.c\
-				$(SRC_DIR)/split.c\
-				$(SRC_DIR)/t_file_printer.c\
-				$(SRC_DIR)/t_file_utils.c\
-				$(SRC_DIR)/t_file.c\
-				$(SRC_DIR)/t_lines_utils.c\
+				$(REF_DIR)/split.c\
+				$(REF_DIR)/t_file_printer.c\
+				$(REF_DIR)/t_file_utils.c\
+				$(REF_DIR)/t_file.c\
 				$(GNL_DIR)/get_next_line_utils.c\
 				$(GNL_DIR)/get_next_line.c\
 			

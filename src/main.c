@@ -6,5 +6,6 @@ int main(void)
 
     map = t_file_get("file.cub", STATUT_READ);
 
+    t_file_print(map, PRINT_FULL);
     return (0);
 }
