@@ -3,7 +3,6 @@
 
 #include "../Refile/includes/all.h"
 
-
 typedef struct s_config
 {
     char *NO;
@@ -11,24 +10,23 @@ typedef struct s_config
     char *WE;
     char *EA;
 
-    ssize_t screen_w;
-    ssize_t screen_h;
+    char *reso;
 
-    ssize_t f_r;
-    ssize_t f_g;
-    ssize_t f_b;
+    char *f_rgb;
+    char *c_rgb;
 
-    ssize_t c_r;
-    ssize_t c_g;
-    ssize_t c_b;
-
+    t_file *map;
 }   t_config;
 
 typedef struct s_data
 {
-    t_config *map;
+    t_config *config;
     
 
 }   t_data;
+
+void data_destructor(t_data *data);
+void config_destructor(t_config *config);
+
 
 #endif
