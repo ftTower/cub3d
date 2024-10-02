@@ -10,6 +10,7 @@ char    *t_file_get_map(t_file *file, char *map_chars);
 t_file *t_file_get(char *file_path, t_statut statut);
 void    t_file_del(t_file *file);
 bool    t_file_add(t_file **files, t_file *to_add);
+bool t_file_open(t_file *file);
 
 t_binder *t_binder_new(char *binder_name);
 void t_binder_add_file(t_binder *binder, t_file *file_to_add);

@@ -10,10 +10,16 @@ typedef struct s_config
     char *WE;
     char *EA;
 
-    char *reso;
+    ssize_t r_w;
+    ssize_t r_h;
 
-    char *f_rgb;
-    char *c_rgb;
+    ssize_t f_r;
+    ssize_t f_g;
+    ssize_t f_b;
+
+    ssize_t c_r;
+    ssize_t c_g;
+    ssize_t c_b;
 
     t_file *map;
 }   t_config;
@@ -24,6 +30,8 @@ typedef struct s_data
     
 
 }   t_data;
+
+void t_rfree(char **ptr);
 
 void data_destructor(t_data *data);
 void config_destructor(t_config *config);
