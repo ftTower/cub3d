@@ -8,6 +8,9 @@ CFLAG		=	-Wall -Wextra -Werror -I./includes -g3
 
 SRC			=	$(SRC_DIR)/main.c\
 				$(SRC_DIR)/free.c \
+				$(SRC_DIR)/utils.c \
+				$(SRC_DIR)/print.c \
+				$(SRC_DIR)/init.c \
 				$(REF_DIR)/split.c\
 				$(REF_DIR)/t_file_printer.c\
 				$(REF_DIR)/t_file_utils.c\

@@ -1,6 +1,8 @@
 #include "../includes/all.h"
 #include <string.h>
 
+ssize_t nb_files = -1;
+
 bool t_file_open(t_file *file)
 {
     if (file->statut == STATUT_READ)
@@ -102,7 +104,8 @@ t_file *t_file_new(void)
     t_file *new;
 
     new = malloc(sizeof(t_file));
-    return (t_file_null(new), new);
+    nb_files++;
+    return (t_file_null(new),new);
 }
 
 t_file *t_file_get(char *file_path, t_statut statut)
@@ -114,10 +117,11 @@ t_file *t_file_get(char *file_path, t_statut statut)
     ret->statut = statut;
     ret->path = file_path;
     if (t_file_open(ret))
-        return (t_file_print(ret, PRINT_MEDIUM), free(ret),NULL);
-
+        return (t_file_print(ret, PRINT_LIGHT), free(ret),NULL);
     t_file_count_line(ret);
     t_file_lines_update(ret);
+    ret->pos = nb_files;
+    t_file_print(ret, PRINT_LIGHT);
     return (ret);
 }
 
