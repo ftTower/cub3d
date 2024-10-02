@@ -24,6 +24,24 @@ typedef struct s_config
     t_file *map;
 }   t_config;
 
+typedef enum e_chunk_type
+{
+    CHUNK_WALL,
+    CHUNK_EMPTY,
+}   t_chunk_type;
+
+typedef struct s_chunk
+{
+    t_chunk_type *type;
+
+}   t_chunk;
+
+typedef struct s_map
+{
+    t_chunk **chunks;
+
+}   t_map;
+
 typedef struct s_data
 {
     t_config *config;
