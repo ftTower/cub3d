@@ -11,6 +11,7 @@ SRC			=	$(SRC_DIR)/main.c\
 				$(SRC_DIR)/free.c \
 				$(SRC_DIR)/utils.c \
 				$(SRC_DIR)/print.c \
+				$(SRC_DIR)/$(INIT_DIR)/map_parse.c \
 				$(SRC_DIR)/$(INIT_DIR)/config.c \
 				$(SRC_DIR)/$(INIT_DIR)/map.c \
 				$(REF_DIR)/split.c\

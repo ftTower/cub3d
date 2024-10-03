@@ -81,7 +81,7 @@ bool    config_init(t_data *data, char *filepath)
 bool    data_init(t_data *data, char *filepath)
 {
     data->config = NULL;
-    if (config_init(data, filepath) || map_init(data))
+    if (config_init(data, filepath) || map_init(data) || fill_check(data->map))
         return (print_checkpoint("DATA", false, true),true);
     return (print_checkpoint("DATA", true, true),print_config(data->config),false);
 }

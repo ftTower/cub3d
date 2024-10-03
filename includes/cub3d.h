@@ -78,4 +78,8 @@ void    print_checkpoint(char *checkpoint_name, bool succeed, bool lignfeed);
 void    print_config(t_config *config);
 void    print_chunks(t_map *map);
 
+//!full fill
+bool    full_fill(t_map *map, ssize_t h, ssize_t l);
+bool    fill_check(t_map *map);
+
 #endif

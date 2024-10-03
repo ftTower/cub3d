@@ -47,6 +47,8 @@ bool    map_maker(t_map *map, char **raw_map)
     h = -1;
     c_h = -1;
     map->chunks = chunks_malloc(map->l, map->h);
+    if (!map->chunks)
+        return (true);
     while(raw_map[++h])
     {
         ++c_h;
@@ -57,16 +59,15 @@ bool    map_maker(t_map *map, char **raw_map)
             if (is_map_char("012NSWE", raw_map[h][l]))
             {
                 if (raw_map[h][l] == '0')
-                    map->chunks[c_h][++c_l].type = CHUNK_EMPTY;
+                    map->chunks[c_h][++c_l].type = CHUNK_VOID;
                 else if (raw_map[h][l] == '1')
                     map->chunks[c_h][++c_l].type = CHUNK_WALL;
                 else if (raw_map[h][l] == 'N' || raw_map[h][l] == 'S' || raw_map[h][l] == 'W' || raw_map[h][l] == 'E')
-                    map->chunks[c_h][++c_l].type = CHUNK_PLAYER;
-
+                    map->chunks[c_h][++c_l].type = CHUNK_PLAYER;   
             }
         }
     }
-    return (t_rfree(raw_map),false);
+    return (t_rfree(raw_map), print_checkpoint("MAP", true, false),false);
 }
 
 bool    map_size(t_map *map, char *map_line)
@@ -80,7 +81,8 @@ bool    map_size(t_map *map, char *map_line)
     h = -1;
     buf = ft_split(map_line, '\n');
     if (!buf)
-        return (true);
+        return (free(map_line), true);
+    free(map_line);
     while(buf[++h])
     {
         index = -1;
@@ -105,5 +107,5 @@ bool    map_init(t_data *data)
     data->map->l = -1;
     data->map->h = -1;
     map = t_file_get_map(data->config->map, "012NSEW \n");
-    return (map_size(data->map, map), free(map), print_chunks(data->map) ,print_checkpoint("MAP", true, false), false);
+    return (map_size(data->map, map));
 }
