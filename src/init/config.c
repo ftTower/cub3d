@@ -7,7 +7,7 @@ bool    texture_init(t_data *data)
     data->config->EA = path_format(t_file_get_patern(data->config->map, "EA"));
     data->config->WE = path_format(t_file_get_patern(data->config->map, "WE"));
     data->config->NO = path_format(t_file_get_patern(data->config->map, "NO"));
-    data->config->SO = path_format(t_file_get_patern(data->config->map, "SO"));
+    data->config->SO = path_format(t_file_get_patern(data->config->map, "SO"));    
     if (!data->config->EA || !data->config->WE || !data->config->NO ||\
         !data->config->SO)
         return (print_checkpoint("TEXTURE", false, false),true);
@@ -81,7 +81,7 @@ bool    config_init(t_data *data, char *filepath)
 bool    data_init(t_data *data, char *filepath)
 {
     data->config = NULL;
-    if (config_init(data, filepath))
+    if (config_init(data, filepath) || map_init(data))
         return (print_checkpoint("DATA", false, true),true);
     return (print_checkpoint("DATA", true, true),print_config(data->config),false);
 }

@@ -46,3 +46,14 @@ char    *path_format(char *str)
         return (t_rfree(buf), NULL);
     return (free(str), t_rfree(buf), ret);
 }
+
+bool    is_map_char(char *map_chars, char c)
+{
+    ssize_t index;
+
+    index = -1;
+    while(map_chars[++index])
+        if (map_chars[index] == c)
+            return (true);
+    return (false);
+}

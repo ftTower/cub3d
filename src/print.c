@@ -29,8 +29,40 @@ void    print_config(t_config *config)
     "\033[48;5;60m",  // violet
     "\033[48;5;59m",  // antracite
     "\033[0m"         // Fin de séquence
-};
+    };
     printf("%s %s : %s%s %-4ld   %s%s   %-4ld%s\n", colors[9],"R", colors[10], colors[8],config->r_w, colors[10], colors[7],config->r_h, colors[10] );
     printf("%s %s : %s%s %-4ld%s%s %-4ld%s%s %-4ld%s\n",colors[9],"F", colors[10], colors[0], config->f_r ,colors[10], colors[1], config->f_g ,colors[10], colors[3], config->f_b ,colors[10]);
     printf("%s %s : %s%s %-4ld%s%s %-4ld%s%s %-4ld%s\n",colors[9],"C", colors[10], colors[0], config->c_r ,colors[10], colors[1], config->c_g ,colors[10], colors[3], config->c_b ,colors[10]);
+}
+
+void    print_chunks(t_map *map)
+{
+    ssize_t h;
+    ssize_t l;
+    char*   colors[5] = {
+    "\033[48;5;1m",   // Rouge
+    "\033[40m\033[37m",   // Noir
+    "\033[48;5;59m",   // Jaune
+    "\033[0m",         // Fin de séquence
+    "\033[48;5;4m"  
+    };
+    h = -1;
+    l = -1;
+    printf("\n");
+    while(++h < map->h)
+    {
+        l = -1;
+        while(++l < map->l)
+        {
+            if (map->chunks[h][l].type == CHUNK_EMPTY)
+                printf("%s  %s", colors[2], colors[3]);
+            else if (map->chunks[h][l].type == CHUNK_VOID)
+                printf("%s  %s", colors[0], colors[3]);
+            else if (map->chunks[h][l].type == CHUNK_WALL)
+                printf("%s  %s", colors[1], colors[3]);
+            else if (map->chunks[h][l].type == CHUNK_PLAYER)
+                printf("%s  %s", colors[4], colors[3]);
+        }
+        printf("\n");
+    }
 }

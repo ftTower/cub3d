@@ -8,6 +8,6 @@ int main(int argc, char **argv)
         return (1);
     else if (data_init(&data, argv[1]))
         return (data_destructor(&data), 1);
-
+    
     return (data_destructor(&data), 0);
 }

@@ -1,5 +1,6 @@
 
 SRC_DIR		=	src
+INIT_DIR	=	init
 REF_DIR		=	Refile/src
 GNL_DIR		= 	Refile/getNextLine
 BUILD_DIR	=	build
@@ -10,7 +11,8 @@ SRC			=	$(SRC_DIR)/main.c\
 				$(SRC_DIR)/free.c \
 				$(SRC_DIR)/utils.c \
 				$(SRC_DIR)/print.c \
-				$(SRC_DIR)/init.c \
+				$(SRC_DIR)/$(INIT_DIR)/config.c \
+				$(SRC_DIR)/$(INIT_DIR)/map.c \
 				$(REF_DIR)/split.c\
 				$(REF_DIR)/t_file_printer.c\
 				$(REF_DIR)/t_file_utils.c\

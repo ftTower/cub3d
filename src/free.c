@@ -25,7 +25,20 @@ void config_destructor(t_config *config)
             free(config));
 }
 
+void chunks_destructor(t_chunk **chunks, ssize_t h)
+{
+    while(--h >= 0)
+        free(chunks[h]);
+    free(chunks);
+}
+
+void map_destructor(t_map *map)
+{
+    return (chunks_destructor(map->chunks, map->h),t_free(map));   
+}
+
 void data_destructor(t_data *data)
 {
     config_destructor(data->config);
+    map_destructor(data->map);
 }
