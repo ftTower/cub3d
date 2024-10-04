@@ -12,6 +12,13 @@ typedef enum e_chunk_type
     CHUNK_PLAYER,
 }   t_chunk_type;
 
+typedef enum e_vision
+{
+    VISION_MAP,
+    VISION_FPV,
+    VISION_BORDER,
+}   t_vision;
+
 typedef struct s_config
 {
     char *NO;
@@ -51,6 +58,8 @@ typedef enum   s_key
     KEY_DOWN,
     KEY_LEFT,
     KEY_RIGHT,
+    KEY_PLUS,
+    KEY_MINUS,
 }   t_key;
 
 typedef struct s_img
@@ -62,15 +71,14 @@ typedef struct s_img
     int     endian;         // Endian (ordre des octets)
     int     width;          // Largeur de l'image
     int     height;         // Hauteur de l'image
-    struct s_img *next;
 }               t_img;
 
 typedef struct s_win
 {
-    t_img   *display;
     bool    *keys;
     void    *mlx_ptr;
     void    *win_ptr;
+    ssize_t chunk_size;
 }   t_win;
 
 typedef struct s_data
@@ -113,8 +121,11 @@ bool    fill_check(t_map *map);
 
 //!game
 int    game(t_data * data);
-int key_press(int keycode, t_data *data);
-int key_release(int keycode, t_data *data);
+int    key_press(int keycode, t_data *data);
+int    key_release(int keycode, t_data *data);
 int    print_key(t_win *win);
+
+//!img
+void    img_refresh(t_data *data);
 
 #endif

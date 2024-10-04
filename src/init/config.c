@@ -80,13 +80,16 @@ bool    config_init(t_data *data, char *filepath)
 
 bool    key_init(t_data *data)
 {
-    data->win->keys = malloc(sizeof(bool) * 4);
+    data->win->keys = malloc(sizeof(bool) * 6);
     if (!data->win->keys)
         return (true);
     data->win->keys[KEY_UP] = false;
     data->win->keys[KEY_DOWN] = false;
     data->win->keys[KEY_LEFT] = false;
     data->win->keys[KEY_RIGHT] = false;
+    data->win->keys[KEY_PLUS] = false;
+    data->win->keys[KEY_MINUS] = false;
+
     return (false);
 }
 
@@ -97,7 +100,7 @@ bool    win_init(t_data *data)
         return (true);
     data->win->mlx_ptr = mlx_init();
     data->win->win_ptr = mlx_new_window(data->win->mlx_ptr, data->config->r_w, data->config->r_h, "CUB3D");
-    return (data->win->display = NULL ,false);
+    return (data->win->chunk_size = 20,false);
 }
 
 bool    data_init(t_data *data, char *filepath)

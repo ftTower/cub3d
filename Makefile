@@ -15,6 +15,7 @@ SRC			=	$(SRC_DIR)/main.c\
 				$(SRC_DIR)/print.c \
 				$(SRC_DIR)/$(LOOP_DIR)/game.c \
 				$(SRC_DIR)/$(LOOP_DIR)/key.c \
+				$(SRC_DIR)/$(LOOP_DIR)/img.c \
 				$(SRC_DIR)/$(INIT_DIR)/map_parse.c \
 				$(SRC_DIR)/$(INIT_DIR)/config.c \
 				$(SRC_DIR)/$(INIT_DIR)/map.c \
