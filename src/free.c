@@ -17,6 +17,18 @@ void t_free(void *ptr)
         free(ptr);
 }
 
+void win_destructor(t_win *win)
+{
+    if (win->win_ptr)
+    mlx_destroy_window(win->mlx_ptr, win->win_ptr);
+    if (win->mlx_ptr)
+    {
+        mlx_destroy_display(win->mlx_ptr);  // S'assure de fermer correctement la connexion au display.
+        free(win->mlx_ptr);  // Libérer le pointeur mlx
+    }
+    t_free(win);
+}
+
 void config_destructor(t_config *config)
 {
     return (t_free(config->NO), t_free(config->SO),\
@@ -41,4 +53,5 @@ void data_destructor(t_data *data)
 {
     config_destructor(data->config);
     map_destructor(data->map);
+    win_destructor(data->win);
 }

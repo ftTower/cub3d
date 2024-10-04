@@ -1,16 +1,20 @@
 
 SRC_DIR		=	src
 INIT_DIR	=	init
+LOOP_DIR	=	loop
 REF_DIR		=	Refile/src
 GNL_DIR		= 	Refile/getNextLine
 BUILD_DIR	=	build
 NAME		=	cub3d
 CFLAG		=	-Wall -Wextra -Werror -I./includes -g3
+LDFLAGS 	= 	-L./minilibx-linux -lmlx_Linux -lmlx -lX11 -lXext
 
 SRC			=	$(SRC_DIR)/main.c\
 				$(SRC_DIR)/free.c \
 				$(SRC_DIR)/utils.c \
 				$(SRC_DIR)/print.c \
+				$(SRC_DIR)/$(LOOP_DIR)/game.c \
+				$(SRC_DIR)/$(LOOP_DIR)/key.c \
 				$(SRC_DIR)/$(INIT_DIR)/map_parse.c \
 				$(SRC_DIR)/$(INIT_DIR)/config.c \
 				$(SRC_DIR)/$(INIT_DIR)/map.c \
@@ -36,7 +40,7 @@ all: $(NAME)
 
 $(NAME):$(OBJ)
 	@echo $(OBJ)
-	@$(CC) $(OBJ) -o $(NAME) $(CFLAG)
+	@$(CC) $(OBJ) -o $(NAME) $(CFLAG) $(LDFLAGS)
 	@clear
 
 clear :
@@ -52,6 +56,15 @@ fclean : clean
 	@rm -f $(NAME)
 	@echo "Clean   : ./$(NAME)"
 
+aclean : fclean cleanlib clear
+
+minlibx :
+	@git clone https://github.com/42Paris/minilibx-linux.git
+	@make -C ./minilibx-linux
+	clear
+
+cleanlib :
+	@rm -rf minilibx-linux
 
 re: fclean all clear 
 

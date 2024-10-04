@@ -2,6 +2,15 @@
 #define CUB3D_H
 
 #include "../Refile/includes/all.h"
+#include "../minilibx-linux/mlx.h"
+
+typedef enum e_chunk_type
+{
+    CHUNK_WALL,
+    CHUNK_EMPTY,
+    CHUNK_VOID,
+    CHUNK_PLAYER,
+}   t_chunk_type;
 
 typedef struct s_config
 {
@@ -24,18 +33,9 @@ typedef struct s_config
     t_file *map;
 }   t_config;
 
-typedef enum e_chunk_type
-{
-    CHUNK_WALL,
-    CHUNK_EMPTY,
-    CHUNK_VOID,
-    CHUNK_PLAYER,
-}   t_chunk_type;
-
 typedef struct s_chunk
 {
     t_chunk_type type;
-
 }   t_chunk;
 
 typedef struct s_map
@@ -45,10 +45,26 @@ typedef struct s_map
     ssize_t h;
 }   t_map;
 
+typedef enum   s_key
+{
+    KEY_UP,
+    KEY_DOWN,
+    KEY_LEFT,
+    KEY_RIGHT,
+}   t_key;
+
+typedef struct s_win
+{
+    bool    *keys;
+    void    *mlx_ptr;
+    void    *win_ptr;
+}   t_win;
+
 typedef struct s_data
 {
     t_config *config;
     t_map    *map;
+    t_win    *win;
 
 }   t_data;
 
@@ -81,5 +97,11 @@ void    print_chunks(t_map *map);
 //!full fill
 bool    full_fill(t_map *map, ssize_t h, ssize_t l);
 bool    fill_check(t_map *map);
+
+//!game
+int    game(t_data * data);
+int key_press(int keycode, t_data *data);
+int key_release(int keycode, t_data *data);
+int    print_key(t_win *win);
 
 #endif

@@ -15,6 +15,33 @@ void    print_checkpoint(char *checkpoint_name, bool succeed, bool lignfeed)
         printf("\n");
 }
 
+int    print_key(t_win *win)
+{
+   char* colors[3] = {
+    "\033[48;5;1m",   // Rouge
+    "\033[48;5;2m",   // Vert
+    "\033[0m"         // Fin de séquence
+    };
+    printf("\033c");
+    if (win->keys[KEY_UP])
+        printf("KEY UP : %s %s\n", colors[1], colors[2]);
+    else
+        printf("KEY UP : %s %s\n", colors[0], colors[2]);
+    if (win->keys[KEY_DOWN])
+        printf("KEY DOWN : %s %s\n", colors[1], colors[2]);
+    else
+        printf("KEY DOWN : %s %s\n", colors[0], colors[2]);
+    if (win->keys[KEY_LEFT])
+        printf("KEY LEFT : %s %s\n", colors[1], colors[2]);
+    else
+        printf("KEY LEFT : %s %s\n", colors[0], colors[2]);
+    if (win->keys[KEY_RIGHT])
+        printf("KEY RIGHT : %s %s\n", colors[1], colors[2]);
+    else
+        printf("KEY RIGHT : %s %s\n", colors[0], colors[2]);
+    return (0);
+}
+
 void    print_config(t_config *config)
 {
     char* colors[11] = {
