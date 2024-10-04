@@ -26,6 +26,7 @@ void win_destructor(t_win *win)
         mlx_destroy_display(win->mlx_ptr);  // S'assure de fermer correctement la connexion au display.
         free(win->mlx_ptr);  // Libérer le pointeur mlx
     }
+    t_free(win->keys);
     t_free(win);
 }
 
@@ -54,4 +55,5 @@ void data_destructor(t_data *data)
     config_destructor(data->config);
     map_destructor(data->map);
     win_destructor(data->win);
+    exit(0);
 }

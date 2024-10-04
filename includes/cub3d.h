@@ -53,8 +53,21 @@ typedef enum   s_key
     KEY_RIGHT,
 }   t_key;
 
+typedef struct s_img
+{
+    void    *img;          // Pointeur vers l'image MLX
+    char    *addr;         // Adresse de la mémoire de l'image
+    int     bits_per_pixel; // Nombre de bits par pixel
+    int     line_length;    // Taille d'une ligne de l'image en mémoire
+    int     endian;         // Endian (ordre des octets)
+    int     width;          // Largeur de l'image
+    int     height;         // Hauteur de l'image
+    struct s_img *next;
+}               t_img;
+
 typedef struct s_win
 {
+    t_img   *display;
     bool    *keys;
     void    *mlx_ptr;
     void    *win_ptr;

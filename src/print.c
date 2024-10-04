@@ -22,7 +22,6 @@ int    print_key(t_win *win)
     "\033[48;5;2m",   // Vert
     "\033[0m"         // Fin de séquence
     };
-    printf("\033c");
     if (win->keys[KEY_UP])
         printf("KEY UP : %s %s\n", colors[1], colors[2]);
     else

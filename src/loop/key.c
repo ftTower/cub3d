@@ -11,7 +11,7 @@ int key_press(int keycode, t_data *data)
     else if (keycode == 2 || keycode == 124 || keycode == 100)
         data->win->keys[KEY_RIGHT] = true;
     else if (keycode == 53 || keycode == 65307)
-        exit(0);
+        data_destructor(data);
     return (0);
 }
 

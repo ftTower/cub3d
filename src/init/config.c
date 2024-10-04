@@ -77,11 +77,9 @@ bool    config_init(t_data *data, char *filepath)
         return (print_checkpoint("CONFIG", false, false),true);
     return (print_checkpoint("CONFIG", true, false),false);
 }
-bool    win_init(t_data *data)
+
+bool    key_init(t_data *data)
 {
-    data->win = malloc(sizeof(t_win));
-    if (!data->win)
-        return (true);
     data->win->keys = malloc(sizeof(bool) * 4);
     if (!data->win->keys)
         return (true);
@@ -89,11 +87,18 @@ bool    win_init(t_data *data)
     data->win->keys[KEY_DOWN] = false;
     data->win->keys[KEY_LEFT] = false;
     data->win->keys[KEY_RIGHT] = false;
-    data->win->mlx_ptr = mlx_init();
-    data->win->win_ptr = mlx_new_window(data->win->mlx_ptr, data->config->r_w, data->config->r_h, "CUB3D");
     return (false);
 }
 
+bool    win_init(t_data *data)
+{
+    data->win = malloc(sizeof(t_win));
+    if (!data->win || key_init(data))
+        return (true);
+    data->win->mlx_ptr = mlx_init();
+    data->win->win_ptr = mlx_new_window(data->win->mlx_ptr, data->config->r_w, data->config->r_h, "CUB3D");
+    return (data->win->display = NULL ,false);
+}
 
 bool    data_init(t_data *data, char *filepath)
 {
