@@ -103,6 +103,7 @@ bool    map_init(t_data *data);
 ssize_t	ft_atoi(const char *str);
 char    *path_format(char *str);
 bool    is_map_char(char *map_chars, char c);
+char	*ft_itoa(int nb);
 
 //!free
 void t_free(void *ptr);

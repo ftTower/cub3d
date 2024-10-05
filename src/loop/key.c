@@ -13,7 +13,8 @@ int key_press(int keycode, t_data *data)
     else if (keycode == 65451)
     {
         data->win->keys[KEY_PLUS] = true;
-        data->win->chunk_size +=2;   
+        if (data->win->chunk_size < 400)
+            data->win->chunk_size +=2;   
     }
     else if (keycode == 65453)
     {

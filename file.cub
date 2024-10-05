@@ -1,4 +1,4 @@
-R 1800 500
+R 1500 500
 NO textures/path_to_the_north_texture
 SO textures/path_to_the_south_texture
 WE textures/path_to_the_west_texture
