@@ -1,28 +1,40 @@
 #include "cub3d.h"
 
+void   update_player(t_data *data)
+{
+    if (data->win->keys[KEY_UP])
+        data->player->y -= 0.1;
+    if (data->win->keys[KEY_DOWN])
+        data->player->y += 0.1;
+    if (data->win->keys[KEY_LEFT])
+        data->player->x -= 0.1;
+    if (data->win->keys[KEY_RIGHT])
+        data->player->x += 0.1;
+}
+
 int key_press(int keycode, t_data *data)
 {
     if (keycode == 13 || keycode == 126 || keycode == 119)
         data->win->keys[KEY_UP] = true;
-    else if (keycode == 1 || keycode == 125 || keycode == 115)
+    if (keycode == 1 || keycode == 125 || keycode == 115)
         data->win->keys[KEY_DOWN] = true;
-    else if (keycode == 0 || keycode == 123 || keycode == 97)
+    if (keycode == 0 || keycode == 123 || keycode == 97)
         data->win->keys[KEY_LEFT] = true;
-    else if (keycode == 2 || keycode == 124 || keycode == 100)
+    if (keycode == 2 || keycode == 124 || keycode == 100)
         data->win->keys[KEY_RIGHT] = true;
-    else if (keycode == 65451)
+    if (keycode == 65451)
     {
         data->win->keys[KEY_PLUS] = true;
         if (data->win->chunk_size < 400)
             data->win->chunk_size +=2;   
     }
-    else if (keycode == 65453)
+    if (keycode == 65453)
     {
         data->win->keys[KEY_MINUS] = true;
         if (data->win->chunk_size > 0)
             data->win->chunk_size -=2;
     }
-    else if (keycode == 53 || keycode == 65307)
+    if (keycode == 53 || keycode == 65307)
         data_destructor(data);
     return (img_refresh(data),0);
 }

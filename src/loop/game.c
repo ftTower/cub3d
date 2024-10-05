@@ -3,8 +3,7 @@
 int    loop(t_data *data)
 {
     img_refresh(data);
-    
-
+    update_player(data);
     return (0);
 }
 

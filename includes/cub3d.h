@@ -134,6 +134,7 @@ int    game(t_data * data);
 int    key_press(int keycode, t_data *data);
 int    key_release(int keycode, t_data *data);
 int    print_key(t_win *win);
+void   update_player(t_data *data);
 
 //!img
 void    img_refresh(t_data *data);
