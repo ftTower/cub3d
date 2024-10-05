@@ -36,7 +36,7 @@ void    my_mlx_pixel_put(t_img *img, int x, int y, int color)
     }
 }
 
-void img_draw_chunk(t_data *data, t_img *img, ssize_t h, ssize_t w, int offset_x, int offset_y)
+void img_draw_chunk(t_data *data, t_img *img, ssize_t h, ssize_t w)
 {
     ssize_t h_c;
     ssize_t w_c;
@@ -45,8 +45,8 @@ void img_draw_chunk(t_data *data, t_img *img, ssize_t h, ssize_t w, int offset_x
     int chunk_size;
 
     chunk_size = data->win->chunk_size;
-    start_h = h * chunk_size + offset_y;
-    start_w = w * chunk_size + offset_x;
+    start_h = h * chunk_size + data->win->offset_y;
+    start_w = w * chunk_size + data->win->offset_x;
     h_c = start_h;
 
     while (h_c < start_h + chunk_size - 1)
@@ -67,30 +67,41 @@ void img_draw_chunk(t_data *data, t_img *img, ssize_t h, ssize_t w, int offset_x
     }
 }
 
+void img_draw_player(t_data *data, t_img *img, int size)
+{
+    int x;
+    int y;
+    int start_x;
+    int start_y;
+
+    x = (data->player->x * data->win->chunk_size) + data->win->offset_x + (data->win->chunk_size / 2);
+    y = (data->player->y * data->win->chunk_size) + data->win->offset_y + (data->win->chunk_size / 2);
+    start_y = y - (size / 2);
+    while(start_y < (y + 1) + (size / 2))
+    {
+        start_x = x - (size / 2);
+        while(start_x < (x + 1) + (size / 2))
+            my_mlx_pixel_put(img, start_x++, start_y, 0xFF0000);
+        start_y++;
+    }
+}
+
 void img_draw_map(t_data *data, t_img *img)
 {
     ssize_t h;
     ssize_t w;
-    int offset_x;
-    int offset_y;
 
-    int map_width = data->map->l * data->win->chunk_size;
-    int map_height = data->map->h * data->win->chunk_size;
-
-    offset_x = (data->config->r_w - map_width) / 2;
-    offset_y = (data->config->r_h - map_height) / 2;
-
+    data->win->offset_x = (data->config->r_w - (data->map->l * data->win->chunk_size)) / 2;
+    data->win->offset_y = (data->config->r_h - (data->map->h * data->win->chunk_size)) / 2;
     h = -1;
     while (++h < data->map->h)
     {
         w = -1;
         while (++w < data->map->l)
-        {
-            img_draw_chunk(data, img, h, w, offset_x, offset_y);
-        }
+            img_draw_chunk(data, img, h, w);
     }
+    img_draw_player(data, img, data->win->chunk_size / 3);
 }
-
 
 void    img_null_pixel(t_data *data, t_img *img)
 {
@@ -110,9 +121,7 @@ void    img_draw(t_data *data, t_vision vision, t_img *img)
 {
     img_null_pixel(data, img);
     if (vision == VISION_MAP)
-    {
         img_draw_map(data, img);
-    }
 }
 
 void    img_put_key(t_data *data, int w, int h)
@@ -140,9 +149,8 @@ void    img_put_num(t_data *data, ssize_t w, ssize_t h, ssize_t num)
     char *buf;
 
     buf = ft_itoa((int)num);
-    // printf("%s\n", buf);
     mlx_string_put(data->win->mlx_ptr, data->win->win_ptr, w, h , 0x000000, buf);
-    // t_free(buf);
+    t_free(buf);
 }
 
 void    img_put_stat(t_data *data)
@@ -157,7 +165,6 @@ void    img_put_stat(t_data *data)
 void    img_refresh(t_data *data)
 {
     t_img *img;
-
 
     img = img_new(data);
     img_draw(data, VISION_MAP, img);

@@ -3,6 +3,7 @@
 int    loop(t_data *data)
 {
     img_refresh(data);
+    
 
     return (0);
 }

@@ -103,10 +103,20 @@ bool    win_init(t_data *data)
     return (data->win->chunk_size = 20,false);
 }
 
+bool    player_init(t_data *data)
+{
+    data->player = malloc(sizeof(t_player));
+    if (!data->player)
+        return (true);
+    data->player->x = 0;
+    data->player->y = 0;
+    return (false);
+}
+
 bool    data_init(t_data *data, char *filepath)
 {
     data->config = NULL;
-    if (config_init(data, filepath) || map_init(data) || fill_check(data->map) || win_init(data))
+    if (config_init(data, filepath) || map_init(data) || player_init(data) || fill_check(data) || win_init(data))
         return (print_checkpoint("DATA", false, true),true);
     return (print_checkpoint("DATA", true, true),print_config(data->config),false);
 }

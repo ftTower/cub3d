@@ -3,6 +3,7 @@
 
 #include "../Refile/includes/all.h"
 #include "../minilibx-linux/mlx.h"
+#include <math.h>
 
 typedef enum e_chunk_type
 {
@@ -79,14 +80,22 @@ typedef struct s_win
     void    *mlx_ptr;
     void    *win_ptr;
     ssize_t chunk_size;
+    int     offset_x;
+    int     offset_y;
 }   t_win;
+
+typedef struct s_player
+{
+    float   x;
+    float   y;
+}   t_player;
 
 typedef struct s_data
 {
     t_config *config;
     t_map    *map;
     t_win    *win;
-
+    t_player *player;
 }   t_data;
 
 //!config
@@ -118,7 +127,7 @@ void    print_chunks(t_map *map);
 
 //!full fill
 bool    full_fill(t_map *map, ssize_t h, ssize_t l);
-bool    fill_check(t_map *map);
+bool    fill_check(t_data *data);
 
 //!game
 int    game(t_data * data);
