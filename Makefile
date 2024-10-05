@@ -7,7 +7,7 @@ GNL_DIR		= 	Refile/getNextLine
 BUILD_DIR	=	build
 NAME		=	cub3d
 CFLAG		=	-Wall -Wextra -Werror -I./includes -g3
-LDFLAGS 	= 	-L./minilibx-linux -lmlx_Linux -lmlx -lX11 -lXext
+LDFLAGS 	= 	-L./minilibx-linux -lmlx_Linux -lmlx -lX11 -lXext -lm
 
 SRC			=	$(SRC_DIR)/main.c\
 				$(SRC_DIR)/free.c \

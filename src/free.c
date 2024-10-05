@@ -52,6 +52,7 @@ void map_destructor(t_map *map)
 
 void data_destructor(t_data *data)
 {
+    t_free(data->player);
     config_destructor(data->config);
     map_destructor(data->map);
     win_destructor(data->win);
