@@ -138,5 +138,10 @@ void   update_player(t_data *data);
 
 //!img
 void    img_refresh(t_data *data);
+void    my_mlx_pixel_put(t_img *img, int x, int y, int color);
+void    img_draw(t_data *data, t_vision vision, t_img *img);
+void    img_put_stat(t_data *data);
+void    img_null_pixel(t_data *data, t_img *img);
+void img_draw_map(t_data *data, t_img *img);
 
 #endif

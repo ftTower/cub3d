@@ -10,12 +10,14 @@ CFLAG		=	-Wall -Wextra -Werror -I./includes -g3
 LDFLAGS 	= 	-L./minilibx-linux -lmlx_Linux -lmlx -lX11 -lXext -lm
 
 SRC			=	$(SRC_DIR)/main.c\
+				$(SRC_DIR)/img/img.c \
+				$(SRC_DIR)/img/put_string.c \
+				$(SRC_DIR)/img/drawing.c \
 				$(SRC_DIR)/free.c \
 				$(SRC_DIR)/utils.c \
 				$(SRC_DIR)/print.c \
 				$(SRC_DIR)/$(LOOP_DIR)/game.c \
 				$(SRC_DIR)/$(LOOP_DIR)/key.c \
-				$(SRC_DIR)/$(LOOP_DIR)/img.c \
 				$(SRC_DIR)/$(INIT_DIR)/map_parse.c \
 				$(SRC_DIR)/$(INIT_DIR)/config.c \
 				$(SRC_DIR)/$(INIT_DIR)/map.c \
