@@ -80,7 +80,7 @@ bool    config_init(t_data *data, char *filepath)
 
 bool    key_init(t_data *data)
 {
-    data->win->keys = malloc(sizeof(bool) * 6);
+    data->win->keys = malloc(sizeof(bool) * 8);
     if (!data->win->keys)
         return (true);
     data->win->keys[KEY_UP] = false;
@@ -89,7 +89,8 @@ bool    key_init(t_data *data)
     data->win->keys[KEY_RIGHT] = false;
     data->win->keys[KEY_PLUS] = false;
     data->win->keys[KEY_MINUS] = false;
-
+    data->win->keys[KEY_ARROW_LEFT] = false;
+    data->win->keys[KEY_ARROW_RIGHT] = false;
     return (false);
 }
 
@@ -110,6 +111,7 @@ bool    player_init(t_data *data)
         return (true);
     data->player->x = 0;
     data->player->y = 0;
+    data->player->angle = 0;
     return (false);
 }
 

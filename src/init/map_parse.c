@@ -29,8 +29,8 @@ bool    fill_check(t_data *data)
         while(++l < data->map->l)
             if (data->map->chunks[h][l].type == CHUNK_PLAYER)
             {
-                data->player->x = (l);
-                data->player->y = (h);
+                data->player->x = (l + 0.5);
+                data->player->y = (h + 0.5);
                 full_fill(data->map, h, l);
                 data->map->chunks[h][l].type = CHUNK_PLAYER;
                 print_chunks(data->map);

@@ -2,14 +2,19 @@
 
 void   update_player(t_data *data)
 {
-    if (data->win->keys[KEY_UP])
-        data->player->y -= 0.1;
-    if (data->win->keys[KEY_DOWN])
-        data->player->y += 0.1;
-    if (data->win->keys[KEY_LEFT])
-        data->player->x -= 0.1;
-    if (data->win->keys[KEY_RIGHT])
-        data->player->x += 0.1;
+        if (data->win->keys[KEY_UP] && (int)(data->player->y) >= 0 && data->map->chunks[(int)(data->player->y - 0.3)][(int)(data->player->x)].type != CHUNK_WALL)
+            data->player->y -= 0.08;
+        if (data->win->keys[KEY_DOWN] && (int)(data->player->y) < data->map->h && data->map->chunks[(int)(data->player->y + 0.3)][(int)(data->player->x)].type != CHUNK_WALL)
+            data->player->y += 0.08;
+        if (data->win->keys[KEY_LEFT] && (int)(data->player->x) >= 0 && data->map->chunks[(int)(data->player->y)][(int)(data->player->x - 0.3)].type != CHUNK_WALL)
+            data->player->x -= 0.08;
+        if (data->win->keys[KEY_RIGHT] && (int)(data->player->x) < data->map->l && data->map->chunks[(int)(data->player->y)][(int)(data->player->x + 0.3)].type != CHUNK_WALL)
+            data->player->x += 0.08;
+        if (data->win->keys[KEY_ARROW_LEFT])
+            data->player->angle += 0.1;
+        if (data->win->keys[KEY_ARROW_RIGHT])
+            data->player->angle -= 0.1;
+
 }
 
 int key_press(int keycode, t_data *data)
@@ -22,6 +27,10 @@ int key_press(int keycode, t_data *data)
         data->win->keys[KEY_LEFT] = true;
     if (keycode == 2 || keycode == 124 || keycode == 100)
         data->win->keys[KEY_RIGHT] = true;
+    if (keycode == 65361)
+        data->win->keys[KEY_ARROW_LEFT] = true;
+    if (keycode == 65363)
+        data->win->keys[KEY_ARROW_RIGHT] = true;
     if (keycode == 65451)
     {
         data->win->keys[KEY_PLUS] = true;
@@ -53,5 +62,9 @@ int key_release(int keycode, t_data *data)
         data->win->keys[KEY_PLUS] = false;
     else if (keycode == 65307)
         data->win->keys[KEY_MINUS] = false;
+    if (keycode == 65361)
+        data->win->keys[KEY_ARROW_LEFT] = false;
+    if (keycode == 65363)
+        data->win->keys[KEY_ARROW_RIGHT] = false;
     return (0);
 }

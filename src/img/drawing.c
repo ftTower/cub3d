@@ -56,8 +56,8 @@ void img_draw_player(t_data *data, t_img *img, int size)
     int start_x;
     int start_y;
 
-    x = (data->player->x * data->win->chunk_size) + data->win->offset_x + (data->win->chunk_size / 2);
-    y = (data->player->y * data->win->chunk_size) + data->win->offset_y + (data->win->chunk_size / 2);
+    x = (data->player->x * data->win->chunk_size) + data->win->offset_x;
+    y = (data->player->y * data->win->chunk_size) + data->win->offset_y;
     start_y = y - (size / 2);
     while(start_y < (y + 1) + (size / 2))
     {
@@ -75,6 +75,8 @@ void img_draw_map(t_data *data, t_img *img)
 
     data->win->offset_x = (data->config->r_w - (data->map->l * data->win->chunk_size)) / 2;
     data->win->offset_y = (data->config->r_h - (data->map->h * data->win->chunk_size)) / 2;
+    // data->win->offset_x = 0;
+    // data->win->offset_y = 0;
     h = -1;
     while (++h < data->map->h)
     {
@@ -82,5 +84,6 @@ void img_draw_map(t_data *data, t_img *img)
         while (++w < data->map->l)
             img_draw_chunk(data, img, h, w);
     }
+    handle_vision(data, img);
     img_draw_player(data, img, data->win->chunk_size / 3);
 }

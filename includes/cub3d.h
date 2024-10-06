@@ -5,6 +5,12 @@
 #include "../minilibx-linux/mlx.h"
 #include <math.h>
 
+#define PI M_PI
+#define PI_OVER_2 (PI / 2)  // 90 degrés
+#define PI_OVER_4 (PI / 4)  // 45 degrés
+#define TWO_PI (2 * PI)     // 360 degrés
+
+
 typedef enum e_chunk_type
 {
     CHUNK_WALL,
@@ -61,6 +67,8 @@ typedef enum   s_key
     KEY_RIGHT,
     KEY_PLUS,
     KEY_MINUS,
+    KEY_ARROW_LEFT,
+    KEY_ARROW_RIGHT,
 }   t_key;
 
 typedef struct s_img
@@ -79,6 +87,7 @@ typedef struct s_win
     bool    *keys;
     void    *mlx_ptr;
     void    *win_ptr;
+
     ssize_t chunk_size;
     int     offset_x;
     int     offset_y;
@@ -88,6 +97,7 @@ typedef struct s_player
 {
     float   x;
     float   y;
+    float   angle; 
 }   t_player;
 
 typedef struct s_data
@@ -143,5 +153,7 @@ void    img_draw(t_data *data, t_vision vision, t_img *img);
 void    img_put_stat(t_data *data);
 void    img_null_pixel(t_data *data, t_img *img);
 void img_draw_map(t_data *data, t_img *img);
+
+void    handle_vision(t_data *data, t_img *img);
 
 #endif

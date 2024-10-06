@@ -36,18 +36,17 @@ void    img_put_player(t_data *data, ssize_t w, ssize_t h)
     img_put_num(data, w + 100, h + 20, (int)data->player->x);
     mlx_string_put(data->win->mlx_ptr, data->win->win_ptr, w , h + 30, 0x000000, "player y : ");
     img_put_num(data, w + 100, h + 30, (int)data->player->y);
-    
+    mlx_string_put(data->win->mlx_ptr, data->win->win_ptr, w , h + 40, 0x000000, "player angle : ");
+    img_put_num(data, w + 100, h + 40, (int)data->player->angle);
+}
 
-    // if ((int)data->player->x < data->map->l && (int)data->player->y < data->map->h &&
-    // (int)data->player->x >= 0 && (int)data->player->y >= 0)
-    // {
-    //     if(data->map->chunks[(int)data->player->x][(int)data->player->y].type == CHUNK_EMPTY)
-    //         mlx_string_put(data->win->mlx_ptr, data->win->win_ptr, w , h + 40, 0x000000, "chunk empty");
-    //     else if(data->map->chunks[(int)data->player->x][(int)data->player->y].type == CHUNK_WALL)
-    //         mlx_string_put(data->win->mlx_ptr, data->win->win_ptr, w , h + 40, 0x000000, "chunk wall");
-    //     else if(data->map->chunks[(int)data->player->x][(int)data->player->y].type == CHUNK_VOID)
-    //         mlx_string_put(data->win->mlx_ptr, data->win->win_ptr, w , h + 40, 0x000000, "chunk void");
-    // }
+void    img_put_map(t_data *data, ssize_t w, ssize_t h)
+{
+    mlx_string_put(data->win->mlx_ptr, data->win->win_ptr, w + 15 , h , 0x000000, "map data : ");
+    mlx_string_put(data->win->mlx_ptr, data->win->win_ptr, w  , h + 20 , 0x000000, "map h : ");
+    img_put_num(data, w + 100, h + 20, data->map->h);
+    mlx_string_put(data->win->mlx_ptr, data->win->win_ptr, w , h + 30, 0x000000, "map l : ");
+    img_put_num(data, w + 100, h + 30, data->map->l);
 }
 
 void    img_put_stat(t_data *data)
@@ -56,10 +55,9 @@ void    img_put_stat(t_data *data)
     mlx_string_put(data->win->mlx_ptr, data->win->win_ptr, data->config->r_w - 200, 10 , 0x000000, "DATA");
 
     img_put_key(data, data->config->r_w - 150, 30);
-
-    mlx_string_put(data->win->mlx_ptr, data->win->win_ptr, data->config->r_w - 200, 70 , 0x000000, "chunk size : ");
-    img_put_num(data, data->config->r_w - 100, 70, data->win->chunk_size);
-
     img_put_player(data, data->config->r_w - 200, 90);
-    
+    img_put_map(data, data->config->r_w - 200, 150);
+
+    mlx_string_put(data->win->mlx_ptr, data->win->win_ptr, data->config->r_w - 100, data->config->r_h - 10 , 0x000000, "chunk size x");
+    img_put_num(data, data->config->r_w - 20, data->config->r_h - 10, data->win->chunk_size);
 }
