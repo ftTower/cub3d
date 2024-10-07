@@ -9,7 +9,7 @@
 #define PI_OVER_2 (PI / 2)  // 90 degrés
 #define PI_OVER_4 (PI / 4)  // 45 degrés
 #define TWO_PI (2 * PI)     // 360 degrés
-
+#define FOV 60
 
 typedef enum e_chunk_type
 {
@@ -155,5 +155,6 @@ void    img_null_pixel(t_data *data, t_img *img);
 void img_draw_map(t_data *data, t_img *img);
 
 void    handle_vision(t_data *data, t_img *img);
+void    img_put_num(t_data *data, ssize_t w, ssize_t h, ssize_t num);
 
 #endif
