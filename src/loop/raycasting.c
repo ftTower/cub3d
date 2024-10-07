@@ -29,17 +29,16 @@ void calculate_end_ray(t_data *data, float *end_x, float *end_y, float *angle, f
     *end_y = data->player->y + cur_dist * sin(*angle);
 }
 
-void draw_ray_by_angle(t_data *data, t_img *img, float angle_incr)
+void draw_ray_by_angle(t_data *data, t_img *img, float angle_incr, float *cur_dist)
 {
     float end_x;
     float end_y;
-    float cur_dist;
     float angle;
 
-    cur_dist = 0.0f;
+    *cur_dist = 0.0f;
     while(1)
     {
-        calculate_end_ray(data, &end_x, &end_y, &angle, angle_incr ,cur_dist);
+        calculate_end_ray(data, &end_x, &end_y, &angle, angle_incr ,*cur_dist);
         if (end_x < 0.0f || end_y < 0.0f || end_x > data->config->r_w || end_y > data->config->r_h)
             break;
         
@@ -49,7 +48,7 @@ void draw_ray_by_angle(t_data *data, t_img *img, float angle_incr)
         if (data->map->chunks[i_end_y][i_end_x].type == CHUNK_WALL)
             break; 
 
-        cur_dist += 0.1f;
+        *cur_dist += 0.1f;
     }
     if (data->win->map_view)
         draw_line(data, img,
@@ -62,19 +61,26 @@ void draw_ray_by_angle(t_data *data, t_img *img, float angle_incr)
 void handle_vision(t_data *data, t_img *img)
 {
     float angle_incr;
-    float fov = 60.0f; // Champ de vision total en degrés (à ajuster si nécessaire)
-    int nombre_de_rayons = data->config->r_w; // Par exemple, égal à la largeur de la fenêtre
+    float fov = 60.0f; 
+    int nombre_de_rayons = data->config->r_w; 
+    float cur_dist;
+    int w_line;
 
-    // Calcul de l'incrémentation de l'angle
     angle_incr = fov / nombre_de_rayons;
-
-    // Boucle unique pour balayer tout le champ de vision (de -FOV/2 à +FOV/2)
-    float current_angle = -fov / 2; // On commence à -FOV/2
+    w_line = 0;
+    float current_angle = -fov / 2; 
     while (current_angle <= fov / 2) {
-        draw_ray_by_angle(data, img, current_angle);
-        current_angle += angle_incr; // Incrémenter par l'angle calculé
+        draw_ray_by_angle(data, img, current_angle, &cur_dist);
+        int wall_height = (int)(data->config->r_h / (cur_dist * cosf(current_angle * (M_PI / 180))));
+        int start = (data->config->r_h / 2) - (wall_height / 2);
+        int end = start + wall_height;
+        if (!data->win->map_view)
+            draw_line(data, img, w_line - data->win->offset_x, start - data->win->offset_y, w_line - data->win->offset_x, end - data->win->offset_y, 0x515251);
+        current_angle += angle_incr;
+        w_line++;
     }
 }
+
 
 
 
