@@ -11,11 +11,10 @@ void    my_mlx_pixel_put(t_img *img, int x, int y, int color)
     }
 }
 
-void    img_draw(t_data *data, t_vision vision, t_img *img)
+void    img_draw(t_data *data,  t_img *img)
 {
     img_null_pixel(data, img);
-    if (vision == VISION_MAP)
-        img_draw_map(data, img);
+    img_draw_map(data, img);
 }
 
 void img_draw_chunk(t_data *data, t_img *img, ssize_t h, ssize_t w)
@@ -39,7 +38,7 @@ void img_draw_chunk(t_data *data, t_img *img, ssize_t h, ssize_t w)
             if (h_c >= 0 && h_c < img->height && w_c >= 0 && w_c < img->width)
             {
                 if (data->map->chunks[h][w].type == CHUNK_EMPTY || data->map->chunks[h][w].type == CHUNK_PLAYER)
-                    my_mlx_pixel_put(img, w_c, h_c, 0x0E731D);
+                    my_mlx_pixel_put(img, w_c, h_c, 0x3B444B);
                 else if (data->map->chunks[h][w].type == CHUNK_WALL)
                     my_mlx_pixel_put(img, w_c, h_c, 0x515251);
             }
@@ -63,7 +62,8 @@ void img_draw_player(t_data *data, t_img *img, int size)
     {
         start_x = x - (size / 2);
         while(start_x < (x + 1) + (size / 2))
-            my_mlx_pixel_put(img, start_x++, start_y, 0xFF0000);
+            if (data->win->map_view)
+                my_mlx_pixel_put(img, start_x++, start_y, 0xF5B932);
         start_y++;
     }
 }
@@ -82,8 +82,10 @@ void img_draw_map(t_data *data, t_img *img)
     {
         w = -1;
         while (++w < data->map->l)
-            img_draw_chunk(data, img, h, w);
+            if (data->win->map_view)
+                img_draw_chunk(data, img, h, w);
     }
     handle_vision(data, img);
-    img_draw_player(data, img, data->win->chunk_size / 3);
+    if (data->win->map_view)
+        img_draw_player(data, img, data->win->chunk_size / 3);
 }

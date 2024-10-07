@@ -35,7 +35,7 @@ void    img_null_pixel(t_data *data, t_img *img)
     {
         w = -1;
         while(++w < data->config->r_w)
-            my_mlx_pixel_put(img, w, h, 0xFFFFFF);
+            my_mlx_pixel_put(img, w, h, 0x000000);
     }
 }
 
@@ -44,7 +44,7 @@ void    img_refresh(t_data *data)
     t_img *img;
 
     img = img_new(data);
-    img_draw(data, VISION_MAP, img);
+    img_draw(data, img);
     mlx_put_image_to_window(data->win->mlx_ptr, data->win->win_ptr, img->img, 0, 0);
     img_put_stat(data);
     mlx_destroy_image(data->win->mlx_ptr, img->img);

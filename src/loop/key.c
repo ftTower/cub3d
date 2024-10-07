@@ -11,14 +11,15 @@ void   update_player(t_data *data)
         if (data->win->keys[KEY_RIGHT] && (int)(data->player->x) < data->map->l && data->map->chunks[(int)(data->player->y)][(int)(data->player->x + 0.3)].type != CHUNK_WALL)
             data->player->x += 0.08;
         if (data->win->keys[KEY_ARROW_LEFT])
-            data->player->angle += 2.0;
-        if (data->win->keys[KEY_ARROW_RIGHT])
             data->player->angle -= 2.0;
+        if (data->win->keys[KEY_ARROW_RIGHT])
+            data->player->angle += 2.0;
 
 }
 
 int key_press(int keycode, t_data *data)
 {
+    // printf("%d\n", keycode);
     if (keycode == 13 || keycode == 126 || keycode == 119)
         data->win->keys[KEY_UP] = true;
     if (keycode == 1 || keycode == 125 || keycode == 115)
@@ -31,6 +32,13 @@ int key_press(int keycode, t_data *data)
         data->win->keys[KEY_ARROW_LEFT] = true;
     if (keycode == 65363)
         data->win->keys[KEY_ARROW_RIGHT] = true;
+    if (keycode == 109)
+    {
+        if (!data->win->map_view)
+            data->win->map_view = true;
+        else   
+            data->win->map_view = false;
+    }
     if (keycode == 65451)
     {
         data->win->keys[KEY_PLUS] = true;

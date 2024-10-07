@@ -22,55 +22,49 @@ void draw_line(t_data *data, t_img *img, int x0, int y0, int x1, int y1, int col
     }
 }
 
-void handle_vision(t_data *data, t_img *img)
+void calculate_end_ray(t_data *data, float *end_x, float *end_y, float *angle, float angle_incr ,float cur_dist)
 {
-    float ray_x;
-    float ray_y;
-    float nb_rays = data->config->r_w / FOV;
-    float angle_step = FOV / nb_rays; 
-    float start_angle = data->player->angle - (FOV / 2); 
+    *angle = (data->player->angle + angle_incr) * M_PI / 180.0;
+    *end_x = data->player->x + cur_dist * cos(*angle);
+    *end_y = data->player->y + cur_dist * sin(*angle);
+}
 
-    float max_ray_length = 100;
+void draw_ray_by_angle(t_data *data, t_img *img, float angle_incr)
+{
+    float end_x;
+    float end_y;
+    float cur_dist;
+    float angle;
 
-    for (int i = 0; i < nb_rays; i++)
+    cur_dist = 0.0f;
+    while(1)
     {
-        float end_x, end_y;
-        float ray_len = 0;
+        calculate_end_ray(data, &end_x, &end_y, &angle, angle_incr ,cur_dist);
+        if (end_x < 0.0f || end_y < 0.0f || end_x > data->config->r_w || end_y > data->config->r_h)
+            break;
         
-        while (1)
-        {
-            float current_angle = start_angle + i * angle_step;
-            float angle_rad = current_angle * (M_PI / 180.0);
+        int i_end_x = end_x;
+        int i_end_y = end_y;
 
-            
-            ray_x = sin(angle_rad) * ray_len; 
-            ray_y = cos(angle_rad) * ray_len; 
+        if (data->map->chunks[i_end_y][i_end_x].type == CHUNK_WALL)
+            break; 
 
-           
-            end_x = data->player->x + ray_x;
-            end_y = data->player->y + ray_y;
-
-           
-            int map_x = (int)(end_x / (float)data->win->chunk_size);
-            int map_y = (int)(end_y / (float)data->win->chunk_size);
-
-            if (map_x < 0 || map_x >= data->map->l || map_y < 0 || map_y >= data->map->h)
-                break;
-            printf("len %f [x:%d][y:%d] chunktype : %d - [%f %f]\n",ray_len ,map_x, map_y, data->map->chunks[map_x][map_y].type, end_x, end_y);
-            if (data->map->chunks[map_x][map_y].type == CHUNK_WALL)
-                break;
-            ray_len += 1;
-            if (ray_len > max_ray_length)
-                break;
-
-        }
+        cur_dist += 0.1f;
+    }
+    if (data->win->map_view)
         draw_line(data, img,
             data->player->x * data->win->chunk_size, 
             data->player->y * data->win->chunk_size, 
             end_x * data->win->chunk_size, 
-            end_y * data->win->chunk_size, 
-            0x000000);
-    }
+            end_y * data->win->chunk_size, 0xFFFFFF);
+}
+
+void handle_vision(t_data *data, t_img *img)
+{
+    for (float angle_incr = 0; angle_incr < 60; angle_incr += 0.1f)
+        draw_ray_by_angle(data, img ,angle_incr);
+    for (float angle_incr = 0; angle_incr > -60; angle_incr -= 0.1f)
+        draw_ray_by_angle(data, img ,angle_incr);
 }
 
 

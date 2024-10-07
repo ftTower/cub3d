@@ -19,13 +19,6 @@ typedef enum e_chunk_type
     CHUNK_PLAYER,
 }   t_chunk_type;
 
-typedef enum e_vision
-{
-    VISION_MAP,
-    VISION_FPV,
-    VISION_BORDER,
-}   t_vision;
-
 typedef struct s_config
 {
     char *NO;
@@ -69,6 +62,7 @@ typedef enum   s_key
     KEY_MINUS,
     KEY_ARROW_LEFT,
     KEY_ARROW_RIGHT,
+    KEY_VIEW_SWITCH,
 }   t_key;
 
 typedef struct s_img
@@ -84,6 +78,8 @@ typedef struct s_img
 
 typedef struct s_win
 {
+    bool    map_view;
+
     bool    *keys;
     void    *mlx_ptr;
     void    *win_ptr;
@@ -149,10 +145,10 @@ void   update_player(t_data *data);
 //!img
 void    img_refresh(t_data *data);
 void    my_mlx_pixel_put(t_img *img, int x, int y, int color);
-void    img_draw(t_data *data, t_vision vision, t_img *img);
+void    img_draw(t_data *data, t_img *img);
 void    img_put_stat(t_data *data);
 void    img_null_pixel(t_data *data, t_img *img);
-void img_draw_map(t_data *data, t_img *img);
+void    img_draw_map(t_data *data, t_img *img);
 
 void    handle_vision(t_data *data, t_img *img);
 void    img_put_num(t_data *data, ssize_t w, ssize_t h, ssize_t num);
