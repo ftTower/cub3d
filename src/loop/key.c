@@ -11,9 +11,9 @@ void   update_player(t_data *data)
         if (data->win->keys[KEY_RIGHT] && (int)(data->player->x) < data->map->l && data->map->chunks[(int)(data->player->y)][(int)(data->player->x + 0.3)].type != CHUNK_WALL)
             data->player->x += 0.08;
         if (data->win->keys[KEY_ARROW_LEFT])
-            data->player->angle -= 2.0;
+            data->player->angle -= 4.0;
         if (data->win->keys[KEY_ARROW_RIGHT])
-            data->player->angle += 2.0;
+            data->player->angle += 4.0;
 
 }
 

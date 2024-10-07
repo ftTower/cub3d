@@ -63,5 +63,5 @@ void    img_put_stat(t_data *data)
     img_put_map(data, data->config->r_w - 200, 150);
 
     mlx_string_put(data->win->mlx_ptr, data->win->win_ptr, data->config->r_w - 100, data->config->r_h - 10 , 0xFFFFFF, "chunk size x");
-    img_put_num(data, data->config->r_w - 20, data->config->r_h - 10, data->win->chunk_size);
+    img_put_num(data, data->config->r_w - 28, data->config->r_h - 10, data->win->chunk_size);
 }

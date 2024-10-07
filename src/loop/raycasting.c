@@ -61,11 +61,22 @@ void draw_ray_by_angle(t_data *data, t_img *img, float angle_incr)
 
 void handle_vision(t_data *data, t_img *img)
 {
-    for (float angle_incr = 0; angle_incr < 60; angle_incr += 0.1f)
-        draw_ray_by_angle(data, img ,angle_incr);
-    for (float angle_incr = 0; angle_incr > -60; angle_incr -= 0.1f)
-        draw_ray_by_angle(data, img ,angle_incr);
+    float angle_incr;
+    float fov = 60.0f; // Champ de vision total en degrés (à ajuster si nécessaire)
+    int nombre_de_rayons = data->config->r_w; // Par exemple, égal à la largeur de la fenêtre
+
+    // Calcul de l'incrémentation de l'angle
+    angle_incr = fov / nombre_de_rayons;
+
+    // Boucle unique pour balayer tout le champ de vision (de -FOV/2 à +FOV/2)
+    float current_angle = -fov / 2; // On commence à -FOV/2
+    while (current_angle <= fov / 2) {
+        draw_ray_by_angle(data, img, current_angle);
+        current_angle += angle_incr; // Incrémenter par l'angle calculé
+    }
 }
+
+
 
 
 
