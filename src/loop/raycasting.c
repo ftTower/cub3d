@@ -48,7 +48,7 @@ void draw_ray_by_angle(t_data *data, t_img *img, float angle_incr, float *cur_di
         if (data->map->chunks[i_end_y][i_end_x].type == CHUNK_WALL)
             break; 
 
-        *cur_dist += 0.01f;
+        *cur_dist += 0.02f;
     }
     if (data->win->map_view)
         draw_line(data, img,
@@ -56,6 +56,10 @@ void draw_ray_by_angle(t_data *data, t_img *img, float angle_incr, float *cur_di
             data->player->y * data->win->chunk_size, 
             end_x * data->win->chunk_size, 
             end_y * data->win->chunk_size, 0xFFFFFF);
+}
+
+int rgb_to_hex(int r, int g, int b) {
+    return (r << 16) + (g << 8) + b;
 }
 
 void handle_vision(t_data *data, t_img *img)
@@ -76,9 +80,9 @@ void handle_vision(t_data *data, t_img *img)
         float end = start + wall_height;
         if (!data->win->map_view)
         {
-            draw_line(data, img, w_line - data->win->offset_x, 0 - data->win->offset_y, w_line - data->win->offset_x, start - data->win->offset_y, 0x0789A3);
+            draw_line(data, img, w_line - data->win->offset_x, 0 - data->win->offset_y, w_line - data->win->offset_x, start - data->win->offset_y, rgb_to_hex(data->config->c_r, data->config->c_g,data->config->c_b));
             draw_line(data, img, w_line - data->win->offset_x, start - data->win->offset_y, w_line - data->win->offset_x, end - data->win->offset_y, 0x515251);
-            draw_line(data, img, w_line - data->win->offset_x, end - data->win->offset_y, w_line - data->win->offset_x, data->config->r_h, 0x07A343);
+            draw_line(data, img, w_line - data->win->offset_x, end - data->win->offset_y, w_line - data->win->offset_x, data->config->r_h, rgb_to_hex(data->config->f_r, data->config->f_g,data->config->f_b));
         }
         current_angle += angle_incr;
         w_line++;
