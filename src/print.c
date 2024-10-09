@@ -67,8 +67,8 @@ void    print_chunks(t_map *map)
     ssize_t l;
     char*   colors[5] = {
     "\033[48;5;1m",   // Rouge
-    "\033[40m\033[37m",   // Noir
-    "\033[48;5;59m",   // Jaune
+    "\033[48;5;0m",   // Noir
+    "\033[48;5;2m",   // Jaune
     "\033[0m",         // Fin de séquence
     "\033[48;5;4m"  
     };
@@ -81,13 +81,13 @@ void    print_chunks(t_map *map)
         while(++l < map->l)
         {
             if (map->chunks[h][l].type == CHUNK_EMPTY)
-                printf("%s  %s", colors[2], colors[3]);
+                printf("%s|%-2ld%-2ld|%s", colors[2],h,l ,colors[3]);
             else if (map->chunks[h][l].type == CHUNK_VOID)
-                printf("%s  %s", colors[0], colors[3]);
+                printf("%s|%-2ld%-2ld|%s", colors[0], h,l,colors[3]);
             else if (map->chunks[h][l].type == CHUNK_WALL)
-                printf("%s  %s", colors[1], colors[3]);
+                printf("%s|%-2ld%-2ld|%s", colors[1], h,l,colors[3]);
             else if (map->chunks[h][l].type == CHUNK_PLAYER)
-                printf("%s  %s", colors[4], colors[3]);
+                printf("%s|%-2ld%-2ld|%s", colors[4], h,l,colors[3]);
         }
         printf("\n");
     }

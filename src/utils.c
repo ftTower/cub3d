@@ -25,6 +25,18 @@ ssize_t	ft_atoi(const char *str)
 	return (num * sign);
 }
 
+void	*ft_memcpy(void *dst, const void *src, size_t n)
+{
+	unsigned char	*ptr_dst;
+
+	if (dst == src)
+		return (dst);
+	ptr_dst = (unsigned char *)dst;
+	while (n--)
+		*ptr_dst++ = *(unsigned char *)src++;
+	return (dst);
+}
+
 char    *path_format(char *str)
 {
     char *ret;

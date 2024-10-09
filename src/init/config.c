@@ -1,32 +1,26 @@
 #include "cub3d.h"
 
-bool    texture_init(t_data *data)
+bool    t_file_get_ptr(t_data *data, t_file **file, char *path)
 {
-    t_file *buf;
+    *file = t_file_get(path, STATUT_READ);
+    if (!*file)
+        return (free(path), true);
+    (*file)->img = img_new(data); 
+    return (free(path), false);
+}
 
-    data->config->EA = path_format(t_file_get_patern(data->config->map, "EA"));
-    data->config->WE = path_format(t_file_get_patern(data->config->map, "WE"));
-    data->config->NO = path_format(t_file_get_patern(data->config->map, "NO"));
-    data->config->SO = path_format(t_file_get_patern(data->config->map, "SO"));    
-    if (!data->config->EA || !data->config->WE || !data->config->NO ||\
-        !data->config->SO)
+bool    texture_init(t_data *data)
+{   
+    data->config->EA = NULL;
+    data->config->WE = NULL;
+    data->config->SO = NULL;
+    data->config->NO = NULL;
+    if (t_file_get_ptr(data, &data->config->EA, path_format(t_file_get_patern(data->config->map, "EA"))) 
+            || t_file_get_ptr(data,&data->config->WE, path_format(t_file_get_patern(data->config->map, "WE"))) 
+            || t_file_get_ptr(data,&data->config->NO, path_format(t_file_get_patern(data->config->map, "NO"))) 
+            || t_file_get_ptr(data,&data->config->SO, path_format(t_file_get_patern(data->config->map, "SO"))))
         return (print_checkpoint("TEXTURE", false, false),true);
-    buf = t_file_get(data->config->EA, STATUT_READ);
-    if (!buf)
-        return (print_checkpoint("TEXTURE", false, false),true);
-    t_file_del(buf);
-    buf = t_file_get(data->config->WE, STATUT_READ);
-    if (!buf)
-        return (print_checkpoint("TEXTURE", false, false),true);
-    t_file_del(buf);
-    buf = t_file_get(data->config->NO, STATUT_READ);
-    if (!buf)
-        return (print_checkpoint("TEXTURE", false, false),true);
-    t_file_del(buf);
-    buf = t_file_get(data->config->SO, STATUT_READ);
-    if (!buf)
-        return (print_checkpoint("TEXTURE", false, false),true);
-    return (t_file_del(buf), print_checkpoint("TEXTURE", true, false),false);
+    return (print_checkpoint("TEXTURE", true, false),false);
 }
 
 bool    rgb_init(char *str, ssize_t *r, ssize_t *g, ssize_t *b)
@@ -70,7 +64,7 @@ bool    config_init(t_data *data, char *filepath)
     if (!data->config)
         return (print_checkpoint("CONFIG", false, false), true);
     data->config->map = t_file_get(filepath, STATUT_READ);
-    if (!data->config->map || texture_init(data) \
+    if (!data->config->map \
         || rgb_init(t_file_get_patern(data->config->map, "C"), &data->config->c_r, &data->config->c_g, &data->config->c_b) \
         || rgb_init(t_file_get_patern(data->config->map, "F"), &data->config->f_r, &data->config->f_g, &data->config->f_b) \
         || res_init(t_file_get_patern(data->config->map, "R"), &data->config->r_w, &data->config->r_h))
@@ -118,8 +112,11 @@ bool    player_init(t_data *data)
 
 bool    data_init(t_data *data, char *filepath)
 {
+    data->map = NULL;
     data->config = NULL;
-    if (config_init(data, filepath) || map_init(data) || player_init(data) || fill_check(data) || win_init(data))
+    data->player = NULL;
+    data->win = NULL;
+    if (config_init(data, filepath) || map_init(data) || player_init(data) || fill_check(data) || win_init(data) || texture_init(data) )
         return (print_checkpoint("DATA", false, true),true);
     return (print_checkpoint("DATA", true, true),print_config(data->config),false);
 }

@@ -21,10 +21,10 @@ typedef enum e_chunk_type
 
 typedef struct s_config
 {
-    char *NO;
-    char *SO;
-    char *WE;
-    char *EA;
+    t_file *NO;
+    t_file *SO;
+    t_file *WE;
+    t_file *EA;
 
     ssize_t r_w;
     ssize_t r_h;
@@ -64,17 +64,6 @@ typedef enum   s_key
     KEY_ARROW_RIGHT,
     KEY_VIEW_SWITCH,
 }   t_key;
-
-typedef struct s_img
-{
-    void    *img;          // Pointeur vers l'image MLX
-    char    *addr;         // Adresse de la mémoire de l'image
-    int     bits_per_pixel; // Nombre de bits par pixel
-    int     line_length;    // Taille d'une ligne de l'image en mémoire
-    int     endian;         // Endian (ordre des octets)
-    int     width;          // Largeur de l'image
-    int     height;         // Hauteur de l'image
-}               t_img;
 
 typedef struct s_win
 {
@@ -124,7 +113,7 @@ char	*ft_itoa(int nb);
 void t_free(void *ptr);
 void t_rfree(char **ptr);
 void data_destructor(t_data *data);
-void config_destructor(t_config *config);
+void config_destructor(t_data *data);
 
 //!print
 void    print_checkpoint(char *checkpoint_name, bool succeed, bool lignfeed);
@@ -132,7 +121,7 @@ void    print_config(t_config *config);
 void    print_chunks(t_map *map);
 
 //!full fill
-bool    full_fill(t_map *map, ssize_t h, ssize_t l);
+void    full_fill(t_map *map, ssize_t h, ssize_t l);
 bool    fill_check(t_data *data);
 
 //!game
@@ -149,6 +138,8 @@ void    img_draw(t_data *data, t_img *img);
 void    img_put_stat(t_data *data);
 void    img_null_pixel(t_data *data, t_img *img);
 void    img_draw_map(t_data *data, t_img *img);
+t_img    *img_new(t_data *data);
+void      img_destructor(t_win *win,t_img *img);
 
 void    handle_vision(t_data *data, t_img *img);
 void    img_put_num(t_data *data, ssize_t w, ssize_t h, ssize_t num);

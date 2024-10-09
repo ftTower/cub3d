@@ -40,7 +40,7 @@ t_line *t_line_new(char *line)
         free(new);
         return (NULL);
     }
-    new->content = strdup(line);
+    new->content = ft_strdup(line);
     new->next = NULL;
     return (new);
 }
@@ -115,9 +115,10 @@ t_file *t_file_get(char *file_path, t_statut statut)
     ret = t_file_new();
 
     ret->statut = statut;
-    ret->path = file_path;
+    ret->img = NULL;
+    ret->path = ft_strdup(file_path);
     if (t_file_open(ret))
-        return (t_file_print(ret, PRINT_LIGHT), free(ret),NULL);
+        return (t_file_print(ret, PRINT_LIGHT), free(ret->path),free(ret),NULL);
     t_file_count_line(ret);
     t_file_lines_update(ret);
     ret->pos = nb_files;
@@ -159,8 +160,12 @@ void t_file_del(t_file *file)
             free(current);
             current = buf;
         }
-        close(file->fd);
-        free(file);
+        if (file->fd > 0)
+            close(file->fd);
+        if (file->path)
+            free(file->path);
+        if (file)
+            free(file);
     }
 }
 

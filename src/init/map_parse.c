@@ -1,20 +1,29 @@
 #include "cub3d.h"
 
-bool    full_fill(t_map *map, ssize_t h, ssize_t l)
+// bool check_open_map(t_map *map)
+// {
+//     ssize_t h = map->h;
+//     ssize_t l = map->l;
+    
+//     while(l > 0)
+//         if (map->chunks[0][l] && ma)
+// }
+
+void full_fill(t_map *map, ssize_t h, ssize_t l)
 {
+    if (h < 0 || l < 0 || h >= map->h || l >= map->l || map->chunks[h][l].type != CHUNK_VOID)
+    {
+        printf("stopped on h %ld l %ld\n", h, l);
+        return;
+    }
+    
     map->chunks[h][l].type = CHUNK_EMPTY;
-    if (h == 0 || l == 0 || h == map->h  - 1|| l == map->l - 1)
-        return (true);
-    if (map->chunks[h - 1][l].type == CHUNK_VOID && map->chunks[h - 1][l].type != CHUNK_EMPTY)
-        full_fill(map, h - 1, l);
-    if (map->chunks[h + 1][l].type == CHUNK_VOID && map->chunks[h + 1][l].type != CHUNK_EMPTY)
-        full_fill(map, h + 1, l);
-    if (map->chunks[h][l - 1].type == CHUNK_VOID && map->chunks[h][l - 1].type != CHUNK_EMPTY)
-        full_fill(map, h, l -1);
-    if (map->chunks[h][l + 1].type == CHUNK_VOID && map->chunks[h][l + 1].type != CHUNK_EMPTY)
-        full_fill(map, h, l + 1);
-    return (false);
+    full_fill(map, h - 1, l);
+    full_fill(map, h + 1, l);
+    full_fill(map, h, l - 1);
+    full_fill(map, h, l + 1);
 }
+
 
 bool    fill_check(t_data *data)
 {
@@ -23,6 +32,7 @@ bool    fill_check(t_data *data)
 
     
     h = -1;
+    printf("l%ld h%ld\n", data->map->l, data->map->h);
     while(++h < data->map->h)
     {
         l = -1;
@@ -34,9 +44,9 @@ bool    fill_check(t_data *data)
                 full_fill(data->map, h, l);
                 data->map->chunks[h][l].type = CHUNK_PLAYER;
                 print_chunks(data->map);
-                print_checkpoint("PARSE", true, false);
+                print_checkpoint("PARSE", true, true);
                 return false;
             }
     }
-    return (print_checkpoint("PARSE", false, false), true);
+    return (print_checkpoint("PARSE", false, true), true);
 }

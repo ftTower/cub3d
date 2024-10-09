@@ -19,8 +19,10 @@ void t_free(void *ptr)
 
 void win_destructor(t_win *win)
 {
+    if (!win)
+        return ;
     if (win->win_ptr)
-    mlx_destroy_window(win->mlx_ptr, win->win_ptr);
+        mlx_destroy_window(win->mlx_ptr, win->win_ptr);
     if (win->mlx_ptr)
     {
         mlx_destroy_display(win->mlx_ptr);  // S'assure de fermer correctement la connexion au display.
@@ -30,30 +32,41 @@ void win_destructor(t_win *win)
     t_free(win);
 }
 
-void config_destructor(t_config *config)
+void config_destructor(t_data *data)
 {
-    return (t_free(config->NO), t_free(config->SO),\
-            t_free(config->WE), t_free(config->EA),  \
-            t_file_del(config->map),\
-            free(config));
+    img_destructor(data->win, data->config->NO->img);
+    img_destructor(data->win, data->config->SO->img);
+    img_destructor(data->win, data->config->WE->img);
+    img_destructor(data->win, data->config->EA->img);
+    t_file_del(data->config->NO);
+    t_file_del(data->config->SO);
+    t_file_del(data->config->WE);
+    t_file_del(data->config->EA);
+    t_file_del(data->config->map);
+    free(data->config);
 }
 
 void chunks_destructor(t_chunk **chunks, ssize_t h)
 {
-    while(--h >= 0)
-        free(chunks[h]);
-    free(chunks);
+    if (chunks)
+    {
+        while(--h >= 0)
+            free(chunks[h]);
+        free(chunks);
+    }
 }
 
 void map_destructor(t_map *map)
 {
+    if (!map)
+        return ;
     return (chunks_destructor(map->chunks, map->h),t_free(map));   
 }
 
 void data_destructor(t_data *data)
 {
+    config_destructor(data);
     t_free(data->player);
-    config_destructor(data->config);
     map_destructor(data->map);
     win_destructor(data->win);
     exit(0);

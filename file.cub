@@ -1,18 +1,18 @@
 R 500 500
-NO textures/path_to_the_north_texture
-SO textures/path_to_the_south_texture
-WE textures/path_to_the_west_texture
-EA textures/path_to_the_east_texture
-S textures/path_to_the_sprite_texture
+NO textures/path_to_the_north_texture.xpm
+SO textures/path_to_the_south_texture.xpm
+WE textures/path_to_the_west_texture.xpm
+EA textures/path_to_the_east_texture.xpm
+S textures/path_to_the_sprite_texture.xpm
 
 F 128,128,128
 C 0,204,204
 0000000000000000000000
 111111111111111111111111
-10000000000001
-100000000000001
-10100000000101
-10111111111101111111
+1000000000000100000001
+1000000000000010000000
+10100000000101000000001
+10000000000000001111111
 100000000000000000S1
 10000111111111111111
 111111
