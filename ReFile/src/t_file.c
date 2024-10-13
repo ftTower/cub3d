@@ -41,6 +41,8 @@ t_line *t_line_new(char *line)
         return (NULL);
     }
     new->content = ft_strdup(line);
+    if (!new->content)
+        return (NULL);
     new->next = NULL;
     return (new);
 }

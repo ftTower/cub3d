@@ -32,18 +32,23 @@ void win_destructor(t_win *win)
     t_free(win);
 }
 
+void t_file_destructor(t_data *data, t_file *file)
+{
+    if (file)
+    {
+        img_destructor(data->win, file->img);
+        t_file_del(file);
+    }
+}
+
 void config_destructor(t_data *data)
 {
-    img_destructor(data->win, data->config->NO->img);
-    img_destructor(data->win, data->config->SO->img);
-    img_destructor(data->win, data->config->WE->img);
-    img_destructor(data->win, data->config->EA->img);
-    t_file_del(data->config->NO);
-    t_file_del(data->config->SO);
-    t_file_del(data->config->WE);
-    t_file_del(data->config->EA);
+    t_file_destructor(data, data->config->NO);
+    t_file_destructor(data, data->config->SO);
+    t_file_destructor(data, data->config->EA);
+    t_file_destructor(data, data->config->WE);
     t_file_del(data->config->map);
-    free(data->config);
+    t_free(data->config);
 }
 
 void chunks_destructor(t_chunk **chunks, ssize_t h)

@@ -1,7 +1,7 @@
 #ifndef CUB3D_H
 #define CUB3D_H
 
-#include "../Refile/includes/all.h"
+#include "../ReFile/includes/all.h"
 #include "../minilibx-linux/mlx.h"
 #include <math.h>
 
@@ -78,11 +78,15 @@ typedef struct s_win
     int     offset_y;
 }   t_win;
 
+
+
 typedef struct s_player
 {
     float   x;
     float   y;
-    float   angle; 
+    float   angle;
+    // float      angle_incr;
+    // float      fov;
 }   t_player;
 
 typedef struct s_data
@@ -121,7 +125,7 @@ void    print_config(t_config *config);
 void    print_chunks(t_map *map);
 
 //!full fill
-void    full_fill(t_map *map, ssize_t h, ssize_t l);
+void    full_fill(t_map **map, ssize_t h, ssize_t l);
 bool    fill_check(t_data *data);
 
 //!game

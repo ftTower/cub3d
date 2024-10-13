@@ -48,7 +48,7 @@ void draw_ray_by_angle(t_data *data, t_img *img, float angle_incr, float *cur_di
         if (data->map->chunks[i_end_y][i_end_x].type == CHUNK_WALL)
             break; 
 
-        *cur_dist += 0.02f;
+        *cur_dist += 0.01f;
     }
     if (data->win->map_view)
         draw_line(data, img,
@@ -62,30 +62,65 @@ int rgb_to_hex(int r, int g, int b) {
     return (r << 16) + (g << 8) + b;
 }
 
+typedef struct s_raycast
+{
+    float cur_dist;
+    float wall_height;
+    float start;
+    float end;
+
+    float cur_angle;
+    int   w_line;
+}   t_raycast;
+
+t_raycast raycast_new(t_data *data)
+{
+    t_raycast new;
+
+    new.cur_angle = -data->player->fov / 2;
+    new.w_line = 0;
+
+    new.cur_dist = 0;
+    new.start = 0;
+    new.end = 0;
+    new.wall_height = 0;
+    return (new);
+}  
+
 void handle_vision(t_data *data, t_img *img)
 {
     float angle_incr;
     float fov = 60.0f; 
-    int nombre_de_rayons = data->config->r_w; 
-    float cur_dist;
-    int w_line;
 
-    angle_incr = fov / nombre_de_rayons;
+    float cur_dist;
+    int   w_line;
+
+    t_raycast r_c;
+
+    r_c = raycast_new(data);
+
+    angle_incr = fov / data->config->r_w;
     w_line = 0;
-    float current_angle = -fov / 2; 
-    while (current_angle <= fov / 2) {
+    
+    float current_angle = -fov / 2;  
+    
+    while (current_angle <= fov / 2) //! r_c.current_angle
+    {
         draw_ray_by_angle(data, img, current_angle, &cur_dist);
+        
         float wall_height = (data->config->r_h / (cur_dist * cosf(current_angle * (M_PI / 180))));
         float start = (data->config->r_h / 2) - (wall_height / 2);
         float end = start + wall_height;
+        
         if (!data->win->map_view)
         {
             draw_line(data, img, w_line - data->win->offset_x, 0 - data->win->offset_y, w_line - data->win->offset_x, start - data->win->offset_y, rgb_to_hex(data->config->c_r, data->config->c_g,data->config->c_b));
             draw_line(data, img, w_line - data->win->offset_x, start - data->win->offset_y, w_line - data->win->offset_x, end - data->win->offset_y, 0x515251);
             draw_line(data, img, w_line - data->win->offset_x, end - data->win->offset_y, w_line - data->win->offset_x, data->config->r_h, rgb_to_hex(data->config->f_r, data->config->f_g,data->config->f_b));
         }
-        current_angle += angle_incr;
-        w_line++;
+        
+        current_angle += angle_incr; 
+        w_line++; //r_c->w_line++
     }
 }
 
