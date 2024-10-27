@@ -38,6 +38,8 @@ void    img_put_player(t_data *data, ssize_t w, ssize_t h)
     img_put_num(data, w + 100, h + 30, (int)data->player->y);
     mlx_string_put(data->win->mlx_ptr, data->win->win_ptr, w , h + 40, 0xFFFFFF, "player angle : ");
     img_put_num(data, w + 100, h + 40, (int)data->player->angle);
+    mlx_string_put(data->win->mlx_ptr, data->win->win_ptr, w , h + 50, 0xFFFFFF, "player FOV   : ");
+    img_put_num(data, w + 100, h + 50, (int)data->player->fov);
 }
 
 void    img_put_map(t_data *data, ssize_t w, ssize_t h)

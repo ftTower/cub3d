@@ -76,9 +76,9 @@ int	rgb_to_hex(int r, int g, int b)
 	return ((r << 16) + (g << 8) + b);
 }
 
-t_raycast	*raycast_new(void)
+t_ray	*ray_new(void)
 {
-	t_raycast	*new;
+	t_ray	*new;
 
 	new = malloc(sizeof(new));
 	new->cur_angle = -FOV / 2;
@@ -90,12 +90,56 @@ t_raycast	*raycast_new(void)
 	return (new);
 }
 
+typedef enum e_draw
+{
+	DRAW_CELL,
+	DRAW_WALL,
+	DRAW_FLOOR,
+}		t_draw;
+
+void	vertical_draw(t_data *data, t_img *img, t_ray *r_c, t_draw type_code)
+{
+	float	index;
+
+	if (type_code == DRAW_CELL)
+	{
+		index = 0;
+		while (index++ < r_c->start)
+			my_mlx_pixel_put(img, r_c->w_line, index,
+				rgb_to_hex(data->config->c_r, data->config->c_g,
+					data->config->c_b));
+	}
+	else if (type_code == DRAW_FLOOR)
+	{
+		index = r_c->end;
+		while (index++ < data->config->r_h)
+			my_mlx_pixel_put(img, r_c->w_line, index,
+				rgb_to_hex(data->config->f_r, data->config->f_g,
+					data->config->f_b));
+	}
+}
+
+void	handle_screen_line(t_data *data, t_img *img, t_ray *r_c)
+{
+	draw_line(data, img, r_c->w_line - data->win->offset_x, 0
+		- data->win->offset_y, r_c->w_line - data->win->offset_x, r_c->start
+		- data->win->offset_y, rgb_to_hex(data->config->c_r, data->config->c_g,
+			data->config->c_b));
+	draw_line(data, img, r_c->w_line - data->win->offset_x, r_c->start
+		- data->win->offset_y, r_c->w_line - data->win->offset_x, r_c->end
+		- data->win->offset_y, 0x515251);
+	draw_line(data, img, r_c->w_line - data->win->offset_x, r_c->end
+		- data->win->offset_y, r_c->w_line - data->win->offset_x,
+		data->config->r_h, rgb_to_hex(data->config->f_r, data->config->f_g,
+			data->config->f_b));
+}
+
 void	handle_vision(t_data *data, t_img *img)
 {
-	float		angle_incr;
-	t_raycast	*r_c;
+	float	angle_incr;
+	t_ray	*r_c;
 
-	r_c = raycast_new();
+	r_c = ray_new();
 	angle_incr = data->player->fov / data->config->r_w;
 	while (r_c->cur_angle <= data->player->fov / 2) //! r_c.current_angle
 	{
@@ -106,17 +150,8 @@ void	handle_vision(t_data *data, t_img *img)
 		r_c->end = r_c->start + r_c->wall_height;
 		if (!data->win->map_view)
 		{
-			draw_line(data, img, r_c->w_line - data->win->offset_x, 0
-				- data->win->offset_y, r_c->w_line - data->win->offset_x,
-				r_c->start - data->win->offset_y, rgb_to_hex(data->config->c_r,
-					data->config->c_g, data->config->c_b));
-			draw_line(data, img, r_c->w_line - data->win->offset_x, r_c->start
-				- data->win->offset_y, r_c->w_line - data->win->offset_x,
-				r_c->end - data->win->offset_y, 0x515251);
-			draw_line(data, img, r_c->w_line - data->win->offset_x, r_c->end
-				- data->win->offset_y, r_c->w_line - data->win->offset_x,
-				data->config->r_h, rgb_to_hex(data->config->f_r,
-					data->config->f_g, data->config->f_b));
+			vertical_draw(data, img, r_c, DRAW_CELL);
+			vertical_draw(data, img, r_c, DRAW_FLOOR);
 		}
 		r_c->cur_angle += angle_incr;
 		r_c->w_line++;

@@ -19,7 +19,7 @@ void   update_player(t_data *data)
 
 int key_press(int keycode, t_data *data)
 {
-    // printf("%d\n", keycode);
+    printf("%d\n", keycode);
     if (keycode == 13 || keycode == 126 || keycode == 119)
         data->win->keys[KEY_UP] = true;
     if (keycode == 1 || keycode == 125 || keycode == 115)
@@ -42,14 +42,18 @@ int key_press(int keycode, t_data *data)
     if (keycode == 65451)
     {
         data->win->keys[KEY_PLUS] = true;
-        if (data->win->chunk_size < 400)
-            data->win->chunk_size +=2;   
+        if (data->win->map_view && data->win->chunk_size < 400)
+            data->win->chunk_size +=2;
+        else if (!data->win->map_view && data->player->fov < 160.0f)
+            data->player->fov += 2;   
     }
     if (keycode == 65453)
     {
         data->win->keys[KEY_MINUS] = true;
-        if (data->win->chunk_size > 0)
+        if (data->win->map_view && data->win->chunk_size > 0)
             data->win->chunk_size -=2;
+        else if (!data->win->map_view && data->player->fov > 30.0f)
+            data->player->fov -= 2;
     }
     if (keycode == 53 || keycode == 65307)
         data_destructor(data);
