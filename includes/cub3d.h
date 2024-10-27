@@ -40,6 +40,17 @@ typedef struct s_config
     t_file *map;
 }   t_config;
 
+typedef struct s_raycast
+{
+    float cur_dist;
+    float wall_height;
+    float start;
+    float end;
+
+    float cur_angle;
+    int   w_line;
+}   t_raycast;
+
 typedef struct s_chunk
 {
     t_chunk_type type;
