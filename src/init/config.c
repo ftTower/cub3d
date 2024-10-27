@@ -104,6 +104,7 @@ bool player_init(t_data *data)
     data->player->x = 0;
     data->player->y = 0;
     data->player->angle = 0;
+    data->player->fov = 60.0f;
     return (false);
 }
 

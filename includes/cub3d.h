@@ -85,8 +85,8 @@ typedef struct s_player
     float   x;
     float   y;
     float   angle;
-    // float      angle_incr;
-    // float      fov;
+    float      angle_incr;
+    float      fov;
 }   t_player;
 
 typedef struct s_data
