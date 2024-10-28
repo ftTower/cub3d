@@ -7,6 +7,10 @@ t_img    *img_new(t_data *data)
     new = malloc(sizeof(t_img));
     if (!new)
         return (NULL);
+    new->addr = NULL;
+    new->bits_per_pixel = 0;
+    new->line_length = 0;
+    new->endian = 0;
     new->img = mlx_new_image(data->win->mlx_ptr, data->config->r_w, data->config->r_h);
     if (!new->img)
         return (NULL);

@@ -19,7 +19,7 @@ void   update_player(t_data *data)
 
 int key_press(int keycode, t_data *data)
 {
-    printf("%d\n", keycode);
+    // printf("%d\n", keycode);
     if (keycode == 13 || keycode == 126 || keycode == 119)
         data->win->keys[KEY_UP] = true;
     if (keycode == 1 || keycode == 125 || keycode == 115)

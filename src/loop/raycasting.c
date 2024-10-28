@@ -80,7 +80,7 @@ t_ray	*ray_new(void)
 {
 	t_ray	*new;
 
-	new = malloc(sizeof(new));
+	new = malloc(sizeof(t_ray));
 	new->cur_angle = -FOV / 2;
 	new->w_line = 0;
 	new->cur_dist = 0;
@@ -90,12 +90,51 @@ t_ray	*ray_new(void)
 	return (new);
 }
 
+typedef enum e_dir
+{
+	NORTH,
+	SOUTH,
+	EAST,
+	WEAST,
+}		t_dir;
 typedef enum e_draw
 {
 	DRAW_CELL,
 	DRAW_WALL,
 	DRAW_FLOOR,
 }		t_draw;
+
+int	get_color_texture(t_file *texture, int x, int y)
+{
+	int	color;
+
+	if (x < 0 || x >= texture->img->width || y < 0 || y >= texture->img->height)
+		return (0);
+	color = *(int *)(texture->img->addr + (y * texture->img->line_length + x
+				* (texture->img->bits_per_pixel / 8)));
+	// printf("%d\n", color);
+	return (color);
+}
+
+void	vertical_draw_texture(t_data *data, t_img *img, t_ray *r_c)
+{
+	float	index;
+	int		tex_x;
+	int		tex_y;
+
+	index = r_c->start;
+	while (index < r_c->end)
+	{
+		tex_x = (r_c->w_line % data->config->NO->img->width);
+		tex_y = (int)((index - r_c->start) * data->config->NO->img->height
+				/ (r_c->end - r_c->start));
+		if (tex_y < 0 || tex_y >= data->config->EA->img->height)
+			tex_y = 0;
+		my_mlx_pixel_put(img, r_c->w_line, (int)index,
+			get_color_texture(data->config->NO, tex_x, tex_y));
+		index++;
+	}
+}
 
 void	vertical_draw(t_data *data, t_img *img, t_ray *r_c, t_draw type_code)
 {
@@ -117,21 +156,8 @@ void	vertical_draw(t_data *data, t_img *img, t_ray *r_c, t_draw type_code)
 				rgb_to_hex(data->config->f_r, data->config->f_g,
 					data->config->f_b));
 	}
-}
-
-void	handle_screen_line(t_data *data, t_img *img, t_ray *r_c)
-{
-	draw_line(data, img, r_c->w_line - data->win->offset_x, 0
-		- data->win->offset_y, r_c->w_line - data->win->offset_x, r_c->start
-		- data->win->offset_y, rgb_to_hex(data->config->c_r, data->config->c_g,
-			data->config->c_b));
-	draw_line(data, img, r_c->w_line - data->win->offset_x, r_c->start
-		- data->win->offset_y, r_c->w_line - data->win->offset_x, r_c->end
-		- data->win->offset_y, 0x515251);
-	draw_line(data, img, r_c->w_line - data->win->offset_x, r_c->end
-		- data->win->offset_y, r_c->w_line - data->win->offset_x,
-		data->config->r_h, rgb_to_hex(data->config->f_r, data->config->f_g,
-			data->config->f_b));
+	else if (type_code == DRAW_WALL)
+		vertical_draw_texture(data, img, r_c);
 }
 
 void	handle_vision(t_data *data, t_img *img)
@@ -151,6 +177,7 @@ void	handle_vision(t_data *data, t_img *img)
 		if (!data->win->map_view)
 		{
 			vertical_draw(data, img, r_c, DRAW_CELL);
+			vertical_draw(data, img, r_c, DRAW_WALL);
 			vertical_draw(data, img, r_c, DRAW_FLOOR);
 		}
 		r_c->cur_angle += angle_incr;
