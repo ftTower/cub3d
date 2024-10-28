@@ -9,7 +9,6 @@
 #define PI_OVER_2 (PI / 2)  // 90 degrés
 #define PI_OVER_4 (PI / 4)  // 45 degrés
 #define TWO_PI (2 * PI)     // 360 degrés
-#define FOV 60
 
 typedef enum e_chunk_type
 {

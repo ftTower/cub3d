@@ -63,7 +63,7 @@ void	draw_ray_by_angle(t_data *data, t_img *img, float angle_incr,
 		i_end_y = end_y;
 		if (data->map->chunks[i_end_y][i_end_x].type == CHUNK_WALL)
 			break ;
-		*cur_dist += 0.01f;
+		*cur_dist += 0.02f;
 	}
 	if (data->win->map_view)
 		draw_line(data, img, data->player->x * data->win->chunk_size,
@@ -76,12 +76,12 @@ int	rgb_to_hex(int r, int g, int b)
 	return ((r << 16) + (g << 8) + b);
 }
 
-t_ray	*ray_new(void)
+t_ray	*ray_new(t_player *player)
 {
 	t_ray	*new;
 
 	new = malloc(sizeof(t_ray));
-	new->cur_angle = -FOV / 2;
+	new->cur_angle = -player->fov / 2;
 	new->w_line = 0;
 	new->cur_dist = 0;
 	new->start = 0;
@@ -165,7 +165,7 @@ void	handle_vision(t_data *data, t_img *img)
 	float	angle_incr;
 	t_ray	*r_c;
 
-	r_c = ray_new();
+	r_c = ray_new(data->player);
 	angle_incr = data->player->fov / data->config->r_w;
 	while (r_c->cur_angle <= data->player->fov / 2) //! r_c.current_angle
 	{
