@@ -18,6 +18,14 @@ typedef enum e_chunk_type
     CHUNK_PLAYER,
 }   t_chunk_type;
 
+typedef enum e_dir
+{
+    DIR_NORTH,
+    DIR_SOUTH,
+    DIR_EAST,
+    DIR_WEAST,
+}   t_dir;
+
 typedef struct s_config
 {
     t_file *NO;
@@ -48,6 +56,7 @@ typedef struct s_ray
 
     float cur_angle;
     int   w_line;
+    t_dir direction;
 }   t_ray;
 
 typedef struct s_chunk
@@ -87,8 +96,6 @@ typedef struct s_win
     int     offset_x;
     int     offset_y;
 }   t_win;
-
-
 
 typedef struct s_player
 {

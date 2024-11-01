@@ -43,7 +43,8 @@ void	calculate_end_ray(t_data *data, float *end_x, float *end_y,
 	*end_y = data->player->y + cur_dist * sin(*angle);
 }
 
-void	draw_ray_by_angle(t_data *data, t_img *img, float angle_incr,
+
+t_dir	draw_ray_by_angle(t_data *data, t_img *img, float angle_incr,
 		float *cur_dist)
 {
 	float	end_x;
@@ -69,6 +70,8 @@ void	draw_ray_by_angle(t_data *data, t_img *img, float angle_incr,
 		draw_line(data, img, data->player->x * data->win->chunk_size,
 			data->player->y * data->win->chunk_size, end_x
 			* data->win->chunk_size, end_y * data->win->chunk_size, 0xFFFFFF);
+	
+	return (DIR_NORTH);
 }
 
 int	rgb_to_hex(int r, int g, int b)
@@ -90,13 +93,6 @@ t_ray	*ray_new(t_player *player)
 	return (new);
 }
 
-typedef enum e_dir
-{
-	NORTH,
-	SOUTH,
-	EAST,
-	WEAST,
-}		t_dir;
 typedef enum e_draw
 {
 	DRAW_CELL,
@@ -112,8 +108,19 @@ int	get_color_texture(t_file *texture, int x, int y)
 		return (0);
 	color = *(int *)(texture->img->addr + (y * texture->img->line_length + x
 				* (texture->img->bits_per_pixel / 8)));
-	// printf("%d\n", color);
 	return (color);
+}
+
+t_file	*get_texture(t_data *data, t_dir dir)
+{
+	if (dir == DIR_EAST)
+		return (data->config->EA);
+	else if (dir == DIR_WEAST)
+		return (data->config->WE);
+	else if (dir == DIR_NORTH)
+		return (data->config->NO);
+	else
+		return (data->config->SO);
 }
 
 void	vertical_draw_texture(t_data *data, t_img *img, t_ray *r_c)
@@ -125,13 +132,15 @@ void	vertical_draw_texture(t_data *data, t_img *img, t_ray *r_c)
 	index = r_c->start;
 	while (index < r_c->end)
 	{
-		tex_x = (r_c->w_line % data->config->NO->img->width);
-		tex_y = (int)((index - r_c->start) * data->config->NO->img->height
-				/ (r_c->end - r_c->start));
-		if (tex_y < 0 || tex_y >= data->config->EA->img->height)
+		tex_x = (r_c->w_line % get_texture(data,
+					r_c->direction)->img->width);
+		tex_y = (int)((index - r_c->start) * get_texture(data,
+					r_c->direction)->img->height / (r_c->end - r_c->start));
+		if (tex_y < 0 || tex_y >= get_texture(data,
+				r_c->direction)->img->height)
 			tex_y = 0;
 		my_mlx_pixel_put(img, r_c->w_line, (int)index,
-			get_color_texture(data->config->NO, tex_x, tex_y));
+			get_color_texture(get_texture(data, r_c->direction), tex_x, tex_y));
 		index++;
 	}
 }
@@ -169,9 +178,13 @@ void	handle_vision(t_data *data, t_img *img)
 	angle_incr = data->player->fov / data->config->r_w;
 	while (r_c->cur_angle <= data->player->fov / 2) //! r_c.current_angle
 	{
-		draw_ray_by_angle(data, img, r_c->cur_angle, &r_c->cur_dist);
-		r_c->wall_height = (data->config->r_h / (r_c->cur_dist
-					* cosf(r_c->cur_angle * (M_PI / 180))));
+		r_c->direction = draw_ray_by_angle(data, img, r_c->cur_angle,
+				&r_c->cur_dist);
+		if (r_c->cur_dist != 0)
+			r_c->wall_height = (data->config->r_h / (r_c->cur_dist
+						* cosf(r_c->cur_angle * (M_PI / 180))));
+		else
+			r_c->wall_height = data->config->r_h;
 		r_c->start = (data->config->r_h / 2) - (r_c->wall_height / 2);
 		r_c->end = r_c->start + r_c->wall_height;
 		if (!data->win->map_view)
