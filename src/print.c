@@ -56,7 +56,7 @@ void    print_config(t_config *config)
     "\033[48;5;59m",  // antracite
     "\033[0m"         // Fin de séquence
     };
-    printf("%s %s : %s%s %-4ld   %s%s   %-4ld%s\n", colors[9],"R", colors[10], colors[8],config->r_w, colors[10], colors[7],config->r_h, colors[10] );
+    printf("\n%s %s : %s%s %-4ld   %s%s   %-4ld%s\n", colors[9],"R", colors[10], colors[8],config->r_w, colors[10], colors[7],config->r_h, colors[10] );
     printf("%s %s : %s%s %-4ld%s%s %-4ld%s%s %-4ld%s\n",colors[9],"F", colors[10], colors[0], config->f_r ,colors[10], colors[1], config->f_g ,colors[10], colors[3], config->f_b ,colors[10]);
     printf("%s %s : %s%s %-4ld%s%s %-4ld%s%s %-4ld%s\n",colors[9],"C", colors[10], colors[0], config->c_r ,colors[10], colors[1], config->c_g ,colors[10], colors[3], config->c_b ,colors[10]);
 }

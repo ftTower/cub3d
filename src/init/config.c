@@ -46,7 +46,7 @@ bool	texture_init(t_data *data)
 		|| t_file_get_ptr(data, &data->config->SO,
 			path_format(t_file_get_patern(data->config->map, "SO"))))
 		return (print_checkpoint("TEXTURE", false, false), true);
-	return (print_checkpoint("TEXTURE", true, false), false);
+	return (false);
 }
 
 bool	rgb_init(char *str, ssize_t *r, ssize_t *g, ssize_t *b)
@@ -55,7 +55,7 @@ bool	rgb_init(char *str, ssize_t *r, ssize_t *g, ssize_t *b)
 
 	buf = ft_split(str, ',');
 	if (!buf)
-		return (free(str), print_checkpoint("RGB", false, false), true);
+		return (free(str), print_checkpoint("RGB", false, true),true);
 	*r = 0;
 	*g = 0;
 	*b = 0;
@@ -65,8 +65,7 @@ bool	rgb_init(char *str, ssize_t *r, ssize_t *g, ssize_t *b)
 		*g = ft_atoi(buf[1]);
 	if (buf[2])
 		*b = ft_atoi(buf[2]);
-	return (free(str), t_rfree(buf), print_checkpoint("RGB", true, false),
-		false);
+	return (free(str), t_rfree(buf),false);
 }
 
 bool	res_init(char *str, ssize_t *w, ssize_t *h)
@@ -75,15 +74,14 @@ bool	res_init(char *str, ssize_t *w, ssize_t *h)
 
 	buf = ft_split(str, ' ');
 	if (!buf)
-		return (free(str), print_checkpoint("RESOLUTION", false, false), true);
+		return (free(str), print_checkpoint("RESOLUTION", false, true), true);
 	*w = 0;
 	*h = 0;
 	if (buf[0])
 		*w = ft_atoi(buf[0]);
 	if (buf[1])
 		*h = ft_atoi(buf[1]);
-	return (free(str), t_rfree(buf), print_checkpoint("RESOLUTION", true,
-			false), false);
+	return (free(str), t_rfree(buf), false);
 }
 
 bool	config_init(t_data *data, char *filepath)
@@ -99,7 +97,7 @@ bool	config_init(t_data *data, char *filepath)
 			&data->config->f_b) || res_init(t_file_get_patern(data->config->map,
 				"R"), &data->config->r_w, &data->config->r_h))
 		return (print_checkpoint("CONFIG", false, true), true);
-	return (print_checkpoint("CONFIG", true, true), false);
+	return (false);
 }
 
 bool	key_init(t_data *data)
@@ -151,6 +149,5 @@ bool	data_init(t_data *data, char *filepath)
 	if (config_init(data, filepath) || win_init(data) || texture_init(data)
 		|| map_init(data) || player_init(data) || fill_check(data))
 		return (print_checkpoint("DATA", false, true), true);
-	return (print_checkpoint("DATA", true, true), print_config(data->config),
-		false);
+	return (print_config(data->config), false);
 }

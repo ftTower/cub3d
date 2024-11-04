@@ -67,7 +67,7 @@ bool    map_maker(t_map *map, char **raw_map)
             }
         }
     }
-    return (t_rfree(raw_map), print_checkpoint("MAP", true, false),false);
+    return (t_rfree(raw_map), false);
 }
 
 bool    map_size(t_map *map, char *map_line)

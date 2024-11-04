@@ -46,9 +46,6 @@ t_dir	draw_ray_by_angle(t_data *data, t_img *img, float angle_incr,
 	}
 	if (data->win->map_view)
 	{
-		draw_line(data, img, data->player->x * data->win->chunk_size,
-			data->player->y * data->win->chunk_size, end_x
-			* data->win->chunk_size, end_y * data->win->chunk_size, 0xFFFFFF);
 		my_mlx_pixel_put(img, (end_x * data->win->chunk_size) + data->win->offset_x,  (end_y * data->win->chunk_size) + data->win->offset_y, 0xF5B932);
 	}
 	return (DIR_NORTH);

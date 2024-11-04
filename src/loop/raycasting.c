@@ -1,40 +1,5 @@
 #include "cub3d.h"
 
-void	draw_line(t_data *data, t_img *img, int x0, int y0, int x1, int y1,
-		int color)
-{
-	int	dx;
-	int	dy;
-	int	sx;
-	int	sy;
-	int	err;
-	int	err2;
-
-	dx = abs(x1 - x0);
-	dy = abs(y1 - y0);
-	sx = (x0 < x1) ? 1 : -1;
-	sy = (y0 < y1) ? 1 : -1;
-	err = dx - dy;
-	while (1)
-	{
-		my_mlx_pixel_put(img, x0 + data->win->offset_x, y0
-			+ data->win->offset_y, color);
-		if (x0 == x1 && y0 == y1)
-			break ;
-		err2 = err * 2;
-		if (err2 > -dy)
-		{
-			err -= dy;
-			x0 += sx;
-		}
-		if (err2 < dx)
-		{
-			err += dx;
-			y0 += sy;
-		}
-	}
-}
-
 int	rgb_to_hex(int r, int g, int b)
 {
 	return ((r << 16) + (g << 8) + b);

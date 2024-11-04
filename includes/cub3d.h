@@ -177,5 +177,6 @@ t_dir	draw_ray_by_angle(t_data *data, t_img *img, float angle_incr,
 		float *cur_dist);
 
 void	vertical_draw(t_data *data, t_img *img, t_ray *r_c, t_draw type_code);
+int	rgb_to_hex(int r, int g, int b);
 
 #endif

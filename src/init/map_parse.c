@@ -47,7 +47,6 @@ bool    fill_check(t_data *data)
 
     
     h = -1;
-    printf("l%ld h%ld\n", data->map->l, data->map->h);
     while(++h < data->map->h)
     {
         l = -1;
@@ -58,12 +57,11 @@ bool    fill_check(t_data *data)
                 data->player->y = (h + 0.5);
                 full_fill(&data->map, h, l);
                 // data->map->chunks[h][l].type = CHUNK_PLAYER;
-                print_chunks(data->map);
+                // print_chunks(data->map);
                 if (check_open_map(data->map))
                     return (print_checkpoint("PARSE", false, true), true);
-                print_checkpoint("PARSE", true, true);
                 return false;
             }
     }
-    return (print_checkpoint("PARSE", false, true), true);
+    return (true);
 }
