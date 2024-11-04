@@ -81,13 +81,13 @@ void    print_chunks(t_map *map)
         while(++l < map->l)
         {
             if (map->chunks[h][l].type == CHUNK_EMPTY)
-                printf("%s|E|%s", colors[2], colors[3]);
+                printf("%sE%s", colors[2], colors[3]);
             else if (map->chunks[h][l].type == CHUNK_VOID)
-                printf("%s|V|%s", colors[0], colors[3]);
+                printf("%sV%s", colors[0], colors[3]);
             else if (map->chunks[h][l].type == CHUNK_WALL)
-                printf("%s|W|%s", colors[1], colors[3]);
+                printf("%sW%s", colors[1], colors[3]);
             else if (map->chunks[h][l].type == CHUNK_PLAYER)
-                printf("%s|P|%s", colors[4], colors[3]);
+                printf("%sP%s", colors[4], colors[3]);
         }
         printf("\n");
     }

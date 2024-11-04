@@ -13,6 +13,7 @@ SRC			=	$(SRC_DIR)/main.c\
 				$(SRC_DIR)/img/img.c \
 				$(SRC_DIR)/img/put_string.c \
 				$(SRC_DIR)/img/drawing.c \
+				$(SRC_DIR)/raycasting/create_ray.c \
 				$(SRC_DIR)/free.c \
 				$(SRC_DIR)/utils.c \
 				$(SRC_DIR)/print.c \

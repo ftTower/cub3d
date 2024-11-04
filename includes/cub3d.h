@@ -164,5 +164,10 @@ void      img_destructor(t_win *win,t_img *img);
 
 void    handle_vision(t_data *data, t_img *img);
 void    img_put_num(t_data *data, ssize_t w, ssize_t h, ssize_t num);
+void	draw_line(t_data *data, t_img *img, int x0, int y0, int x1, int y1,
+		int color);
+t_ray	*ray_new(t_player *player);
+t_dir	draw_ray_by_angle(t_data *data, t_img *img, float angle_incr,
+		float *cur_dist);
 
 #endif
