@@ -13,16 +13,15 @@ void	handle_vision(t_data *data, t_img *img)
 	{
 		r_c->direction = draw_ray_by_angle(data, img, r_c->cur_angle,
 				&r_c->cur_dist);
-		if (r_c->cur_dist != 0)
-			r_c->wall_height = (data->config->r_h / (r_c->cur_dist
-						* cosf(r_c->cur_angle * (M_PI / 180))));
-		else
-			r_c->wall_height = data->config->r_h;
-		r_c->start = (data->config->r_h / 2) - (r_c->wall_height / 2);
-		r_c->end = r_c->start + r_c->wall_height;
-		
 		if (!data->win->map_view)
 		{
+			if (r_c->cur_dist != 0)
+				r_c->wall_height = (data->config->r_h / (r_c->cur_dist
+							* cosf(r_c->cur_angle * (M_PI / 180))));
+			else
+				r_c->wall_height = data->config->r_h;
+			r_c->start = (data->config->r_h / 2) - (r_c->wall_height / 2);
+			r_c->end = r_c->start + r_c->wall_height;
 			vertical_draw(data, img, r_c, DRAW_CELL);
 			vertical_draw(data, img, r_c, DRAW_WALL);
 			vertical_draw(data, img, r_c, DRAW_FLOOR);
