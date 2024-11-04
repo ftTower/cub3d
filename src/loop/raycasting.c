@@ -44,6 +44,9 @@ void	vertical_draw_texture(t_data *data, t_img *img, t_ray *r_c)
 		if (tex_y < 0 || tex_y >= get_texture(data,
 				r_c->direction)->img->height)
 			tex_y = 0;
+		if (tex_x < 0 || tex_x >= get_texture(data,
+				r_c->direction)->img->width)
+			tex_x = 0;
 		my_mlx_pixel_put(img, r_c->w_line, (int)index,
 			get_color_texture(get_texture(data, r_c->direction), tex_x, tex_y));
 		index++;

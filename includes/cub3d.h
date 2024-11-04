@@ -57,11 +57,14 @@ typedef struct s_config
 typedef struct s_ray
 {
     float cur_dist;
+
     float wall_height;
     float start;
     float end;
 
     float cur_angle;
+    float angle_incr;
+
     int   w_line;
     t_dir direction;
 }   t_ray;
@@ -173,8 +176,7 @@ void    img_put_num(t_data *data, ssize_t w, ssize_t h, ssize_t num);
 void	draw_line(t_data *data, t_img *img, int x0, int y0, int x1, int y1,
 		int color);
 t_ray	*ray_new(t_player *player);
-t_dir	draw_ray_by_angle(t_data *data, t_img *img, float angle_incr,
-		float *cur_dist);
+t_dir	get_ray_dist(t_data *data, t_img *img, t_ray *rc);
 
 void	vertical_draw(t_data *data, t_img *img, t_ray *r_c, t_draw type_code);
 int	rgb_to_hex(int r, int g, int b);

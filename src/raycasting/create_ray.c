@@ -6,6 +6,7 @@ t_ray	*ray_new(t_player *player)
 
 	new = malloc(sizeof(t_ray));
 	new->cur_angle = -player->fov / 2;
+	new->angle_incr = 0;
 	new->w_line = 0;
 	new->cur_dist = 0;
 	new->start = 0;
@@ -22,8 +23,7 @@ void	calculate_end_ray(t_data *data, float *end_x, float *end_y,
 	*end_y = data->player->y + cur_dist * sin(*angle);
 }
 
-t_dir	draw_ray_by_angle(t_data *data, t_img *img, float angle_incr,
-		float *cur_dist)
+t_dir	get_ray_dist(t_data *data, t_img *img, t_ray *r_c)
 {
 	float	end_x;
 	float	end_y;
@@ -31,10 +31,10 @@ t_dir	draw_ray_by_angle(t_data *data, t_img *img, float angle_incr,
 	int		i_end_x;
 	int		i_end_y;
 
-	*cur_dist = 0.0f;
+	r_c->cur_dist = 0.0f;
 	while (1)
 	{
-		calculate_end_ray(data, &end_x, &end_y, &angle, angle_incr, *cur_dist);
+		calculate_end_ray(data, &end_x, &end_y, &angle, r_c->cur_angle, r_c->cur_dist);
 		if (end_x < 0.0f || end_y < 0.0f || end_x > data->config->r_w
 			|| end_y > data->config->r_h)
 			break ;
@@ -42,11 +42,9 @@ t_dir	draw_ray_by_angle(t_data *data, t_img *img, float angle_incr,
 		i_end_y = end_y;
 		if (data->map->chunks[i_end_y][i_end_x].type == CHUNK_WALL)
 			break ;
-		*cur_dist += 0.1f;
+		r_c->cur_dist += 0.1f;
 	}
 	if (data->win->map_view)
-	{
 		my_mlx_pixel_put(img, (end_x * data->win->chunk_size) + data->win->offset_x,  (end_y * data->win->chunk_size) + data->win->offset_y, 0xF5B932);
-	}
-	return (DIR_NORTH);
+	return (DIR_SOUTH);
 }

@@ -2,17 +2,15 @@
 
 void	handle_vision(t_data *data, t_img *img)
 {
-	float	angle_incr;
 	t_ray	*r_c;
 
 	r_c = ray_new(data->player);
-	angle_incr = data->player->fov / data->config->r_w;
+	r_c->angle_incr = data->player->fov / data->config->r_w;
 	if (data->win->map_view)
 			img_draw_map(data, img);
 	while (r_c->cur_angle <= data->player->fov / 2) //! r_c.current_angle
 	{
-		r_c->direction = draw_ray_by_angle(data, img, r_c->cur_angle,
-				&r_c->cur_dist);
+		r_c->direction = get_ray_dist(data, img, r_c);
 		if (!data->win->map_view)
 		{
 			if (r_c->cur_dist != 0)
@@ -26,7 +24,7 @@ void	handle_vision(t_data *data, t_img *img)
 			vertical_draw(data, img, r_c, DRAW_WALL);
 			vertical_draw(data, img, r_c, DRAW_FLOOR);
 		}
-		r_c->cur_angle += angle_incr;
+		r_c->cur_angle += r_c->angle_incr;
 		r_c->w_line++;
 	}
 	free(r_c);

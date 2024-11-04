@@ -77,7 +77,7 @@ void    t_file_print_info(t_file *file, const char **colors)
     if (file->nb_line < 0)
         printf("%s     ❌     %s",colors[3], colors[8]);
     else
-        printf("%s %-5.5ld lines%s",colors[3], file->nb_line, colors[8]);
+        printf("%s %-5.5ld lines | %s",colors[3], file->nb_line, colors[8]);
 }
 
 void    t_file_print_line(t_file *file, const char **colors, int grade, int len)
@@ -123,7 +123,7 @@ void    t_file_print(t_file *file, t_print grade)
     if (grade == PRINT_LIGHT)
     {
         t_file_print_info(file, colors);
-        printf("%s | %-32.31s%s",colors[4], file->path, colors[8]);
+        printf("%s %-32.31s%s",colors[4], file->path, colors[8]);
         printf("\n");
     }
     else if (grade == PRINT_MEDIUM)
