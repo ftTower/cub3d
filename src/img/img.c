@@ -48,7 +48,8 @@ void    img_refresh(t_data *data)
     t_img *img;
 
     img = img_new(data);
-    img_draw(data, img);
+    img_null_pixel(data, img);
+    handle_vision(data, img);
     mlx_put_image_to_window(data->win->mlx_ptr, data->win->win_ptr, img->img, 0, 0);
     img_put_stat(data);
     mlx_destroy_image(data->win->mlx_ptr, img->img);

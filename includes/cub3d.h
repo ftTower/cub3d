@@ -10,6 +10,13 @@
 #define PI_OVER_4 (PI / 4)  // 45 degrés
 #define TWO_PI (2 * PI)     // 360 degrés
 
+typedef enum e_draw
+{
+	DRAW_CELL,
+	DRAW_WALL,
+	DRAW_FLOOR,
+}		t_draw;
+
 typedef enum e_chunk_type
 {
     CHUNK_WALL,
@@ -155,7 +162,6 @@ void   update_player(t_data *data);
 //!img
 void    img_refresh(t_data *data);
 void    my_mlx_pixel_put(t_img *img, int x, int y, int color);
-void    img_draw(t_data *data, t_img *img);
 void    img_put_stat(t_data *data);
 void    img_null_pixel(t_data *data, t_img *img);
 void    img_draw_map(t_data *data, t_img *img);
@@ -169,5 +175,7 @@ void	draw_line(t_data *data, t_img *img, int x0, int y0, int x1, int y1,
 t_ray	*ray_new(t_player *player);
 t_dir	draw_ray_by_angle(t_data *data, t_img *img, float angle_incr,
 		float *cur_dist);
+
+void	vertical_draw(t_data *data, t_img *img, t_ray *r_c, t_draw type_code);
 
 #endif

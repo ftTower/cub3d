@@ -11,12 +11,6 @@ void    my_mlx_pixel_put(t_img *img, int x, int y, int color)
     }
 }
 
-void    img_draw(t_data *data,  t_img *img)
-{
-    img_null_pixel(data, img);
-    img_draw_map(data, img);
-}
-
 void img_draw_chunk(t_data *data, t_img *img, ssize_t h, ssize_t w)
 {
     ssize_t h_c;
@@ -80,18 +74,15 @@ void img_draw_map(t_data *data, t_img *img)
     ssize_t h;
     ssize_t w;
 
+    h = -1;
     data->win->offset_x = (data->config->r_w - (data->map->l * data->win->chunk_size)) / 2;
     data->win->offset_y = (data->config->r_h - (data->map->h * data->win->chunk_size)) / 2;
-    h = -1;
     while (++h < data->map->h)
     {
         w = -1;
         while (++w < data->map->l)
-            if (data->win->map_view)
-                img_draw_chunk(data, img, h, w);
+            img_draw_chunk(data, img, h, w);
     }
     // drunk_mode(data);
-    handle_vision(data, img);
-    if (data->win->map_view)
-        img_draw_player(data, img, data->win->chunk_size / 3);
+    img_draw_player(data, img, data->win->chunk_size / 3);
 }
