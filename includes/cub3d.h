@@ -61,6 +61,8 @@ typedef struct s_ray
     float wall_height;
     float start;
     float end;
+    float end_x;
+    float end_y;
 
     float cur_angle;
     float angle_incr;
@@ -171,7 +173,7 @@ void    img_draw_map(t_data *data, t_img *img);
 t_img    *img_new(t_data *data);
 void      img_destructor(t_win *win,t_img *img);
 
-void    handle_vision(t_data *data, t_img *img);
+void    handle_raycasting(t_data *data, t_img *img);
 void    img_put_num(t_data *data, ssize_t w, ssize_t h, ssize_t num);
 void	draw_line(t_data *data, t_img *img, int x0, int y0, int x1, int y1,
 		int color);

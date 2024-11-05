@@ -13,8 +13,8 @@ SRC			=	$(SRC_DIR)/main.c\
 				$(SRC_DIR)/img/img.c \
 				$(SRC_DIR)/img/put_string.c \
 				$(SRC_DIR)/img/drawing.c \
-				$(SRC_DIR)/raycasting/create_ray.c \
-				$(SRC_DIR)/raycasting/vision.c \
+				$(SRC_DIR)/raycasting/raycasting.c \
+				$(SRC_DIR)/raycasting/textures.c \
 				$(SRC_DIR)/free.c \
 				$(SRC_DIR)/utils.c \
 				$(SRC_DIR)/print.c \
@@ -24,7 +24,6 @@ SRC			=	$(SRC_DIR)/main.c\
 				$(REF_DIR)/t_file.c \
 				$(REF_DIR)/t_lines_utils.c \
 				$(SRC_DIR)/$(LOOP_DIR)/game.c \
-				$(SRC_DIR)/$(LOOP_DIR)/raycasting.c \
 				$(SRC_DIR)/$(LOOP_DIR)/key.c \
 				$(SRC_DIR)/$(INIT_DIR)/map_parse.c \
 				$(SRC_DIR)/$(INIT_DIR)/config.c \
