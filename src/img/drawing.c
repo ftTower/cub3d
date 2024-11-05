@@ -62,12 +62,7 @@ void img_draw_player(t_data *data, t_img *img, int size)
     }
 }
 
-void drunk_mode(t_data *data)
-{
-    if (data->player->fov >= 160.0f)
-        data->player->fov = 60.0f;
-    data->player->fov+= 0.5f;
-}
+
 
 void img_draw_map(t_data *data, t_img *img)
 {
@@ -83,6 +78,5 @@ void img_draw_map(t_data *data, t_img *img)
         while (++w < data->map->l)
             img_draw_chunk(data, img, h, w);
     }
-    // drunk_mode(data);
     img_draw_player(data, img, data->win->chunk_size / 3);
 }
