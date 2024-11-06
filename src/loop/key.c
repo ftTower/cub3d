@@ -32,6 +32,13 @@ int key_press(int keycode, t_data *data)
         data->win->keys[KEY_ARROW_LEFT] = true;
     if (keycode == 65363)
         data->win->keys[KEY_ARROW_RIGHT] = true;
+    if (keycode == 65472)
+    {
+        if (!data->win->debug_view)
+            data->win->debug_view = true;
+        else   
+            data->win->debug_view = false;
+    }
     if (keycode == 109)
     {
         if (!data->win->map_view)

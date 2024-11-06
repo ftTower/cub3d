@@ -51,7 +51,8 @@ void    img_refresh(t_data *data)
     img_null_pixel(data, img);
     handle_raycasting(data, img);
     mlx_put_image_to_window(data->win->mlx_ptr, data->win->win_ptr, img->img, 0, 0);
-    img_put_stat(data);
+    if (data->win->debug_view)
+        img_put_stat(data);
     mlx_destroy_image(data->win->mlx_ptr, img->img);
     t_free(img);
 }

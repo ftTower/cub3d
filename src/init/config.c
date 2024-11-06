@@ -114,6 +114,7 @@ bool	key_init(t_data *data)
 	data->win->keys[KEY_ARROW_LEFT] = false;
 	data->win->keys[KEY_ARROW_RIGHT] = false;
 	data->win->keys[KEY_VIEW_SWITCH] = false;
+	data->win->keys[KEY_DEBUG_SWITCH] = false;
 	return (false);
 }
 

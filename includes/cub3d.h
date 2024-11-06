@@ -94,11 +94,13 @@ typedef enum   s_key
     KEY_ARROW_LEFT,
     KEY_ARROW_RIGHT,
     KEY_VIEW_SWITCH,
+    KEY_DEBUG_SWITCH,
 }   t_key;
 
 typedef struct s_win
 {
     bool    map_view;
+    bool    debug_view;
 
     bool    *keys;
     void    *mlx_ptr;

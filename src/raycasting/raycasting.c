@@ -46,7 +46,6 @@ void	get_ray_dist(t_data *data, t_img *img, t_ray *r_c)
 	{
 	    calculate_end_ray(data, &r_c->end_x, &r_c->end_y, &angle, r_c->cur_angle, r_c->cur_dist);
 
-	    // Condition de sortie si hors limites
 	    if (r_c->end_x < 0.0f || r_c->end_y < 0.0f || r_c->end_x > data->config->r_w || r_c->end_y > data->config->r_h)
 	        break;
 
@@ -60,18 +59,16 @@ void	get_ray_dist(t_data *data, t_img *img, t_ray *r_c)
 		my_mlx_pixel_put(img, (r_c->end_x * data->win->chunk_size) + data->win->offset_x,
 						(r_c->end_y * data->win->chunk_size) + data->win->offset_y, 0xF5B932);
 
-	// Calcul précis de la direction basée sur dx et dy
-	// Calcul précis de la direction basée sur dx et dy
 	float dx = r_c->end_x - i_end_x;
 	float dy = r_c->end_y - i_end_y;
 
-	if (dx > 0 && fabsf(dy) < 0.5f)
+	if (dx > 0 && fabsf(dy) < 0.05f)
     	r_c->direction = DIR_EAST;
-	else if (dx < 0 && fabsf(dy) < 0.5f)
+	else if (dx < 0 && fabsf(dy) < 0.05f)
     	r_c->direction = DIR_WEAST;
-	else if (dy > 0 && fabsf(dx) < 0.5f)
+	else if (dy > 0 && fabsf(dx) < 0.05f)
     	r_c->direction = DIR_SOUTH;
-	else if (dy < 0 && fabsf(dx) < 0.5f)
+	else if (dy < 0 && fabsf(dx) < 0.05f)
     	r_c->direction = DIR_NORTH;
 
 }
@@ -100,16 +97,20 @@ void	handle_raycasting(t_data *data, t_img *img)
 
 			r_c->start = (data->config->r_h / 2) - (r_c->wall_height / 2);
 			r_c->end = r_c->start + r_c->wall_height;
-
-			vertical_draw(data, img, r_c, DRAW_CELL);
-			vertical_draw(data, img, r_c, DRAW_WALL);
-			vertical_draw(data, img, r_c, DRAW_FLOOR);
-			// my_mlx_pixel_put(img, r_c->w_line, r_c->start,
-			// 	rgb_to_hex(data->config->c_r, data->config->c_g,
-			// 		data->config->c_b));
-			// my_mlx_pixel_put(img, r_c->w_line, r_c->end,
-			// 	rgb_to_hex(data->config->c_r, data->config->c_g,
-			// 		data->config->c_b));
+			if (!data->win->debug_view)
+			{
+				vertical_draw(data, img, r_c, DRAW_CELL);
+				vertical_draw(data, img, r_c, DRAW_WALL);
+				vertical_draw(data, img, r_c, DRAW_FLOOR);
+			}
+			else {
+				my_mlx_pixel_put(img, r_c->w_line, r_c->start,
+					rgb_to_hex(data->config->c_r, data->config->c_g,
+						data->config->c_b));
+				my_mlx_pixel_put(img, r_c->w_line, r_c->end,
+					rgb_to_hex(data->config->c_r, data->config->c_g,
+						data->config->c_b));
+			}
 		}
 		r_c->cur_angle += r_c->angle_incr;
 		r_c->w_line++;
