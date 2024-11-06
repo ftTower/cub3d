@@ -15,17 +15,16 @@ int	get_color_texture(t_file *texture, int x, int y)
 				* (texture->img->bits_per_pixel / 8)));
 	return (color);
 }
-
-t_file	*get_texture(t_data *data, t_dir dir)
-{
-	if (dir == DIR_EAST)
-		return (data->config->EA);
-	else if (dir == DIR_WEAST)
-		return (data->config->WE);
-	else if (dir == DIR_NORTH)
-		return (data->config->NO);
-	else
-		return (data->config->SO);
+t_file *get_texture(t_data *data, t_dir dir) {
+    // printf("Direction: %d\n", dir); // Ajoutez ceci pour déboguer
+    if (dir == DIR_EAST)
+        return data->config->EA;
+    else if (dir == DIR_WEAST)
+        return data->config->WE;
+    else if (dir == DIR_NORTH)
+        return data->config->NO;
+    else
+        return data->config->SO;
 }
 
 void vertical_draw_texture(t_data *data, t_img *img, t_ray *r_c)
@@ -38,33 +37,42 @@ void vertical_draw_texture(t_data *data, t_img *img, t_ray *r_c)
 
     texture = get_texture(data, r_c->direction);
 
-    // Correction de tex_x pour les directions nord/sud et est/ouest
-    if (r_c->direction == DIR_NORTH || r_c->direction == DIR_SOUTH)
-        tex_x = (int)((r_c->end_x - (int)r_c->end_x) * texture->img->width);
-    else
-        tex_x = (int)((r_c->end_y - (int)r_c->end_y) * texture->img->width);
-
-    // Hauteur du mur projeté sur l’écran
     wall_height = r_c->end - r_c->start;
-    
+
+    // printf("Direction: %d\n", r_c->direction);
+    // printf("Wall height: %f\n", wall_height);
+    // printf("Start: %f, End: %f\n", r_c->start, r_c->end);
+
+    if (r_c->direction == DIR_NORTH || r_c->direction == DIR_SOUTH)
+    {
+        tex_x = (int)((r_c->end_x - (int)r_c->end_x) * texture->img->width);
+    }
+    else
+    {
+        tex_x = (int)((r_c->end_y - (int)r_c->end_y) * texture->img->width);
+    }
+
+    tex_x = tex_x < 0 ? 0 : tex_x;
+    tex_x = tex_x >= texture->img->width ? texture->img->width - 1 : tex_x;
+
     index = r_c->start;
     while (index < r_c->end)
     {
-        // Calcul de tex_y pour couvrir toute la hauteur de la texture
-        tex_y = (int)((index - r_c->start) * texture->img->height / wall_height);
 
-        // Limite tex_y pour rester dans la plage de la texture
-        if (tex_y < 0)
-            tex_y = 0;
-        else if (tex_y >= texture->img->height)
-            tex_y = texture->img->height - 1;
+        tex_y = (int)(((index - r_c->start) / wall_height) * texture->img->height);
 
-        // Affichage du pixel avec la couleur de la texture
+
+        tex_y = tex_y < 0 ? 0 : tex_y;
+        tex_y = tex_y >= texture->img->height ? texture->img->height - 1 : tex_y;
+
+
         my_mlx_pixel_put(img, r_c->w_line, (int)index,
             get_color_texture(texture, tex_x, tex_y));
+
         index++;
     }
 }
+
 
 void	vertical_draw(t_data *data, t_img *img, t_ray *r_c, t_draw type_code)
 {

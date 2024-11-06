@@ -62,8 +62,6 @@ void img_draw_player(t_data *data, t_img *img, int size)
     }
 }
 
-
-
 void img_draw_map(t_data *data, t_img *img)
 {
     ssize_t h;

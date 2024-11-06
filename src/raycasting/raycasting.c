@@ -30,29 +30,52 @@ void	calculate_end_ray(t_data *data, float *end_x, float *end_y,
 	*end_y = data->player->y + cur_dist * sin(*angle);
 }
 
-t_dir	get_ray_dist(t_data *data, t_img *img, t_ray *r_c)
+// t_dir	get_dir(t_data *data, t_ray *r_c)
+// {
+
+// }
+
+void	get_ray_dist(t_data *data, t_img *img, t_ray *r_c)
 {
 	float	angle;
 	int		i_end_x;
 	int		i_end_y;
 
 	r_c->cur_dist = 0.0f;
-	while (1)
+	while (r_c->cur_dist < 50.0f)
 	{
-		calculate_end_ray(data, &r_c->end_x, &r_c->end_y, &angle, r_c->cur_angle, r_c->cur_dist);
-		if (r_c->end_x < 0.0f || r_c->end_y < 0.0f || r_c->end_x > data->config->r_w
-			|| r_c->end_y > data->config->r_h)
-			break ;
-		i_end_x = r_c->end_x;
-		i_end_y = r_c->end_y;
-		if (data->map->chunks[i_end_y][i_end_x].type == CHUNK_WALL)
-			break ;
-		r_c->cur_dist += 0.1f;
+	    calculate_end_ray(data, &r_c->end_x, &r_c->end_y, &angle, r_c->cur_angle, r_c->cur_dist);
+
+	    // Condition de sortie si hors limites
+	    if (r_c->end_x < 0.0f || r_c->end_y < 0.0f || r_c->end_x > data->config->r_w || r_c->end_y > data->config->r_h)
+	        break;
+
+	    i_end_x = (int)r_c->end_x;
+	    i_end_y = (int)r_c->end_y;
+	    if (data->map->chunks[i_end_y][i_end_x].type == CHUNK_WALL)
+	        break;
+	    r_c->cur_dist += 0.05f;
 	}
 	if (data->win->map_view)
-		my_mlx_pixel_put(img, (r_c->end_x * data->win->chunk_size) + data->win->offset_x,  (r_c->end_y * data->win->chunk_size) + data->win->offset_y, 0xF5B932);
-	return (DIR_EAST);
+		my_mlx_pixel_put(img, (r_c->end_x * data->win->chunk_size) + data->win->offset_x,
+						(r_c->end_y * data->win->chunk_size) + data->win->offset_y, 0xF5B932);
+
+	// Calcul précis de la direction basée sur dx et dy
+	// Calcul précis de la direction basée sur dx et dy
+	float dx = r_c->end_x - i_end_x;
+	float dy = r_c->end_y - i_end_y;
+
+	if (dx > 0 && fabsf(dy) < 0.5f)
+    	r_c->direction = DIR_EAST;
+	else if (dx < 0 && fabsf(dy) < 0.5f)
+    	r_c->direction = DIR_WEAST;
+	else if (dy > 0 && fabsf(dx) < 0.5f)
+    	r_c->direction = DIR_SOUTH;
+	else if (dy < 0 && fabsf(dx) < 0.5f)
+    	r_c->direction = DIR_NORTH;
+
 }
+
 
 void	handle_raycasting(t_data *data, t_img *img)
 {
@@ -65,7 +88,7 @@ void	handle_raycasting(t_data *data, t_img *img)
     // drunk_mode(data);	
 	while (r_c->cur_angle <= data->player->fov / 2)
 	{
-		r_c->direction = get_ray_dist(data, img, r_c);
+		get_ray_dist(data, img, r_c);
 		if (!data->win->map_view)
 		{
 
