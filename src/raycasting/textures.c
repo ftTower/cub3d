@@ -52,8 +52,8 @@ void vertical_draw_texture(t_data *data, t_img *img, t_ray *r_c)
         tex_x = (int)((r_c->end_y - (int)r_c->end_y) * texture->img->width);
     }
 
-    tex_x = tex_x < 0 ? 0 : tex_x;
-    tex_x = tex_x >= texture->img->width ? texture->img->width - 1 : tex_x;
+    // tex_x = tex_x < 0 ? 0 : tex_x;
+    // tex_x = tex_x >= texture->img->width ? texture->img->width - 1 : tex_x;
 
     index = r_c->start;
     while (index < r_c->end)

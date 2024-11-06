@@ -30,11 +30,6 @@ void	calculate_end_ray(t_data *data, float *end_x, float *end_y,
 	*end_y = data->player->y + cur_dist * sin(*angle);
 }
 
-// t_dir	get_dir(t_data *data, t_ray *r_c)
-// {
-
-// }
-
 void	get_ray_dist(t_data *data, t_img *img, t_ray *r_c)
 {
 	float	angle;
@@ -53,26 +48,24 @@ void	get_ray_dist(t_data *data, t_img *img, t_ray *r_c)
 	    i_end_y = (int)r_c->end_y;
 	    if (data->map->chunks[i_end_y][i_end_x].type == CHUNK_WALL)
 	        break;
-	    r_c->cur_dist += 0.05f;
+	    r_c->cur_dist += 0.01f;
 	}
 	if (data->win->map_view)
 		my_mlx_pixel_put(img, (r_c->end_x * data->win->chunk_size) + data->win->offset_x,
 						(r_c->end_y * data->win->chunk_size) + data->win->offset_y, 0xF5B932);
-
-	float dx = r_c->end_x - i_end_x;
-	float dy = r_c->end_y - i_end_y;
-
-	if (dx > 0 && fabsf(dy) < 0.05f)
-    	r_c->direction = DIR_EAST;
-	else if (dx < 0 && fabsf(dy) < 0.05f)
-    	r_c->direction = DIR_WEAST;
-	else if (dy > 0 && fabsf(dx) < 0.05f)
-    	r_c->direction = DIR_SOUTH;
-	else if (dy < 0 && fabsf(dx) < 0.05f)
-    	r_c->direction = DIR_NORTH;
-
 }
 
+void	get_ray_dir(t_ray *r_c)
+{
+	if ((r_c->end_x - (int)r_c->end_x) < 0.01f)
+		r_c->direction = DIR_WEAST;
+	else if ((r_c->end_y - (int)r_c->end_y) < 0.01f)
+		r_c->direction = DIR_NORTH;
+	else if ((1.0f - (r_c->end_x - (int)r_c->end_x)) < 0.01f)
+		r_c->direction = DIR_EAST;
+	else if ((1.0f - (r_c->end_y - (int)r_c->end_y)) < 0.01f)
+		r_c->direction = DIR_SOUTH;
+}
 
 void	handle_raycasting(t_data *data, t_img *img)
 {
@@ -86,6 +79,7 @@ void	handle_raycasting(t_data *data, t_img *img)
 	while (r_c->cur_angle <= data->player->fov / 2)
 	{
 		get_ray_dist(data, img, r_c);
+		get_ray_dir(r_c);
 		if (!data->win->map_view)
 		{
 
