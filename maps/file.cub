@@ -1,9 +1,9 @@
-R 400 400
-NO textures/path_to_the_north_texture.xpm
-SO textures/path_to_the_south_texture.xpm
-WE textures/path_to_the_west_texture.xpm
-EA textures/path_to_the_east_texture.xpm
-S textures/path_to_the_sprite_texture.xpm
+R 1000 1000
+NO maps/textures/test/path_to_the_north_texture.xpm
+SO maps/textures/test/path_to_the_south_texture.xpm
+WE maps/textures/test/path_to_the_west_texture.xpm
+EA maps/textures/test/path_to_the_east_texture.xpm
+S maps/textures/test/path_to_the_sprite_texture.xpm
 
 C 135,206,235
 F 125,186,111
