@@ -2,8 +2,9 @@
 
 bool	t_file_get_ptr(t_data *data, t_file **file, char *path)
 {
-	// Charger la texture depuis un fichier XPM avec sa taille réelle
-	int tex_width, tex_height;
+	int	tex_width;
+	int	tex_height;
+
 	*file = t_file_get(path, STATUT_READ);
 	if (!*file)
 		return (true);
@@ -13,7 +14,6 @@ bool	t_file_get_ptr(t_data *data, t_file **file, char *path)
 		free(*file);
 		return (true);
 	}
-	// Charger l'image à partir du fichier XPM avec la vraie taille
 	(*file)->img->img = mlx_xpm_file_to_image(data->win->mlx_ptr, path,
 			&tex_width, &tex_height);
 	if (!(*file)->img->img)
@@ -25,10 +25,8 @@ bool	t_file_get_ptr(t_data *data, t_file **file, char *path)
 	(*file)->img->addr = mlx_get_data_addr((*file)->img->img,
 			&(*file)->img->bits_per_pixel, &(*file)->img->line_length,
 			&(*file)->img->endian);
-	(*file)->img->width = tex_width;
-	(*file)->img->height = tex_height;
-	free(path);
-	return (false);
+	return ((*file)->img->width = tex_width,
+		(*file)->img->height = tex_height, free(path), false);
 }
 
 bool	texture_init(t_data *data)
@@ -55,7 +53,7 @@ bool	rgb_init(char *str, ssize_t *r, ssize_t *g, ssize_t *b)
 
 	buf = ft_split(str, ',');
 	if (!buf)
-		return (free(str), print_checkpoint("RGB", false, true),true);
+		return (free(str), print_checkpoint("RGB", false, true), true);
 	*r = 0;
 	*g = 0;
 	*b = 0;
@@ -65,7 +63,7 @@ bool	rgb_init(char *str, ssize_t *r, ssize_t *g, ssize_t *b)
 		*g = ft_atoi(buf[1]);
 	if (buf[2])
 		*b = ft_atoi(buf[2]);
-	return (free(str), t_rfree(buf),false);
+	return (free(str), t_rfree(buf), false);
 }
 
 bool	res_init(char *str, ssize_t *w, ssize_t *h)
@@ -126,7 +124,8 @@ bool	win_init(t_data *data)
 	data->win->mlx_ptr = mlx_init();
 	data->win->win_ptr = mlx_new_window(data->win->mlx_ptr, data->config->r_w,
 			data->config->r_h, "CUB3D");
-	return (data->win->map_view = false, data->win->debug_view = false,data->win->chunk_size = 20, false);
+	return (data->win->map_view = false,
+		data->win->debug_view = false, data->win->chunk_size = 20, false);
 }
 
 bool	player_init(t_data *data)

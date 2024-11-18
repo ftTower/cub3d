@@ -11,45 +11,48 @@ int	get_color_texture(t_file *texture, int x, int y)
 
 	if (x < 0 || x >= texture->img->width || y < 0 || y >= texture->img->height)
 		return (0);
-	color = *(int *)(texture->img->addr + (y * texture->img->line_length + x
-				* (texture->img->bits_per_pixel / 8)));
+	color = *(int *)(texture->img->addr + \
+	(y * texture->img->line_length + x * (texture->img->bits_per_pixel / 8)));
 	return (color);
 }
-t_file *get_texture(t_data *data, t_dir dir) {
-    if (dir == DIR_EAST)
-        return data->config->EA;
-    else if (dir == DIR_WEAST)
-        return data->config->WE;
-    else if (dir == DIR_NORTH)
-        return data->config->NO;
-    else
-        return data->config->SO;
+
+t_file	*get_texture(t_data *data, t_dir dir)
+{
+	if (dir == DIR_EAST)
+		return (data->config->EA);
+	else if (dir == DIR_WEAST)
+		return (data->config->WE);
+	else if (dir == DIR_NORTH)
+		return (data->config->NO);
+	else
+		return (data->config->SO);
 }
 
-void vertical_draw_texture(t_data *data, t_img *img, t_ray *r_c)
+void	vertical_draw_texture(t_data *data, t_img *img, t_ray *r_c)
 {
-    float index;
-    int   tex_x;
-    int   tex_y;
-    float wall_height;
-    t_file *texture;
+	float	index;
+	int		tex_x;
+	int		tex_y;
+	float	wall_height;
+	t_file	*texture;
 
-    texture = get_texture(data, r_c->direction);
-    wall_height = r_c->end - r_c->start;
-    if (r_c->direction == DIR_NORTH || r_c->direction == DIR_SOUTH)
-        tex_x = (int)((r_c->end_x - (int)r_c->end_x) * texture->img->width);
-    else
-        tex_x = (int)((r_c->end_y - (int)r_c->end_y) * texture->img->width);
-    index = r_c->start;
-    while (index < r_c->end)
-    {
-        tex_y = (int)(((index - r_c->start) / wall_height) * texture->img->height);
-        tex_y = tex_y < 0 ? 0 : tex_y;
-        tex_y = tex_y >= texture->img->height ? texture->img->height - 1 : tex_y;
-        my_mlx_pixel_put(img, r_c->w_line, (int)index,
-            get_color_texture(texture, tex_x, tex_y));
-        index++;
-    }
+	texture = get_texture(data, r_c->direction);
+	wall_height = r_c->end - r_c->start;
+	if (r_c->direction == DIR_NORTH || r_c->direction == DIR_SOUTH)
+		tex_x = (int)((r_c->end_x - (int)r_c->end_x) * texture->img->width);
+	else
+		tex_x = (int)((r_c->end_y - (int)r_c->end_y) * texture->img->width);
+	index = r_c->start;
+	while (index < r_c->end)
+	{
+		tex_y = (int)(((index - r_c->start) / \
+			wall_height) * texture->img->height);
+		tex_y = tex_y < 0 ? 0 : tex_y;
+		tex_y = tex_y >= texture->img->height ? texture->img->height - 1 : tex_y;
+		my_mlx_pixel_put(img, r_c->w_line, (int)index,
+			get_color_texture(texture, tex_x, tex_y));
+		index++;
+	}
 }
 
 void	vertical_draw(t_data *data, t_img *img, t_ray *r_c, t_draw type_code)
@@ -75,5 +78,3 @@ void	vertical_draw(t_data *data, t_img *img, t_ray *r_c, t_draw type_code)
 	else if (type_code == DRAW_WALL)
 		vertical_draw_texture(data, img, r_c);
 }
-
-
