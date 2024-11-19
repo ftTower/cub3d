@@ -31,7 +31,7 @@ void	extract_line(t_list *stash, char **line)
 			if (stash->content[i] == '\n')
 			{
 				(*line)[j++] = stash->content[i];
-				break;
+				break ;
 			}
 			(*line)[j++] = stash->content[i++];
 		}
@@ -42,18 +42,18 @@ void	extract_line(t_list *stash, char **line)
 
 size_t	ft_strlen(const char *str)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
-	while(str[i])
+	while (str[i])
 		i++;
 	return (i);
 }
 
 void	free_stash(t_list *stash)
 {
-	t_list *current;
-	t_list *next;
+	t_list	*current;
+	t_list	*next;
 
 	current = stash;
 	while (current)
@@ -67,10 +67,10 @@ void	free_stash(t_list *stash)
 
 void	clear_stash(t_list **stash)
 {
-	t_list *last;
-	t_list *clean_node;
-	int i;
-	int j;
+	t_list	*last;
+	t_list	*clean_node;
+	int		i;
+	int		j;
 
 	clean_node = malloc(sizeof(t_list));
 	if (stash == NULL || clean_node == NULL)
@@ -82,7 +82,8 @@ void	clear_stash(t_list **stash)
 		i++;
 	if (last->content && last->content[i] == '\n')
 		i++;
-	clean_node->content = malloc(sizeof(char) * ((ft_strlen(last->content) - i) + 1));
+	clean_node->content = malloc(sizeof(char) * ((ft_strlen(
+						last->content) - i) + 1));
 	if (clean_node == NULL)
 		return ;
 	j = 0;
@@ -95,22 +96,18 @@ void	clear_stash(t_list **stash)
 
 char	*get_next_line(int fd)
 {
-	static t_list *stash = NULL;
+	static t_list	*stash = NULL;
 	char			*line;
 	int				readed;
 
-	
-	if (fd < 0 || BUFFER_SIZE < 0  || read(fd, &line, 0) < 0)
+	if (fd < 0 || BUFFER_SIZE < 0 || read(fd, &line, 0) < 0)
 		return (NULL);
 	readed = 1;
 	line = NULL;
-	//read from fd and add to linker list
 	read_and_stash(&stash, &readed, fd);
 	if (stash == NULL)
 		return (NULL);
-	//extract from stash to line
 	extract_line(stash, &line);
-	//cleanup la stash
 	clear_stash(&stash);
 	if (line[0] == '\0')
 	{

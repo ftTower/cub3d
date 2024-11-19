@@ -1,26 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   hooks.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/05 18:08:01 by marvin            #+#    #+#             */
+/*   Updated: 2024/06/05 18:08:01 by marvin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
-
-void	drunk_mode(t_data *data)
-{
-	if (data->player->fov >= 160.0f)
-		data->player->fov = 60.0f;
-	data->player->fov += 0.5f;
-}
-
-t_ray	*ray_new(t_player *player)
-{
-	t_ray	*new;
-
-	new = malloc(sizeof(t_ray));
-	new->cur_angle = -player->fov / 2;
-	new->angle_incr = 0;
-	new->w_line = 0;
-	new->cur_dist = 0;
-	new->start = 0;
-	new->end = 0;
-	new->wall_height = 0;
-	return (new);
-}
 
 void	calculate_end_ray(t_data *data, float *end_x, float *end_y,
 	float *angle, float angle_incr, float cur_dist)
@@ -68,10 +58,10 @@ void	get_ray_dir(t_ray *r_c)
 		r_c->direction = DIR_SOUTH;
 }
 
-void handle_pov(t_data *data, t_ray *r_c, t_img *img)
+void	handle_pov(t_data *data, t_ray *r_c, t_img *img)
 {
 	if (r_c->cur_dist != 0)
-		r_c->wall_height = (data->config->r_h \
+		r_c->wall_height = (data->config->r_h /
 				(r_c->cur_dist * cosf(r_c->cur_angle * (M_PI / 180))));
 	else
 		r_c->wall_height = data->config->r_h;
@@ -94,15 +84,15 @@ void handle_pov(t_data *data, t_ray *r_c, t_img *img)
 	}
 }
 
-void handle_raycasting(t_data *data, t_img *img)
+/*drunk_mode(data);*/
+void	handle_raycasting(t_data *data, t_img *img)
 {
-	t_ray *r_c;
+	t_ray	*r_c;
 
 	r_c = ray_new(data->player);
 	r_c->angle_incr = data->player->fov / data->config->r_w;
 	if (data->win->map_view)
 		img_draw_map(data, img);
-	// drunk_mode(data);
 	while (r_c->cur_angle <= data->player->fov / 2)
 	{
 		get_ray_dist(data, img, r_c);

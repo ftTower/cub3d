@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   hooks.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/05 18:08:01 by marvin            #+#    #+#             */
+/*   Updated: 2024/06/05 18:08:01 by marvin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-void chunks_null(t_chunk **chunks, ssize_t l, ssize_t h)
+void	chunks_null(t_chunk **chunks, ssize_t l, ssize_t h)
 {
 	ssize_t	index;
 
@@ -36,40 +48,6 @@ t_chunk	**chunks_malloc(ssize_t l, ssize_t h)
 	return (chunks_null(new, l, h), new);
 }
 
-bool	map_maker(t_map *map, char **raw_map)
-{
-	ssize_t	h;
-	ssize_t	l;
-	ssize_t	c_h;
-	ssize_t	c_l;
-
-	h = -1;
-	c_h = -1;
-	map->chunks = chunks_malloc(map->l, map->h);
-	if (!map->chunks)
-		return (true);
-	while (raw_map[++h])
-	{
-		++c_h;
-		c_l = -1;
-		l = -1;
-		while (raw_map[h][++l])
-		{
-			if (is_map_char("012NSWE", raw_map[h][l]))
-			{
-				if (raw_map[h][l] == '0')
-					map->chunks[c_h][++c_l].type = CHUNK_VOID;
-				else if (raw_map[h][l] == '1')
-					map->chunks[c_h][++c_l].type = CHUNK_WALL;
-				else if (raw_map[h][l] == 'N' || raw_map[h][l] == 'S'
-					|| raw_map[h][l] == 'W' || raw_map[h][l] == 'E')
-					map->chunks[c_h][++c_l].type = CHUNK_PLAYER;
-			}
-		}
-	}
-	return (t_rfree(raw_map), false);
-}
-
 bool	map_size(t_map *map, char *map_line)
 {
 	char	**buf;
@@ -100,7 +78,6 @@ bool	map_size(t_map *map, char *map_line)
 bool	map_init(t_data *data)
 {
 	char	*map;
-
 	data->map = malloc(sizeof(t_map));
 	if (!data->map)
 		return (print_checkpoint("MAP", false, false), true);

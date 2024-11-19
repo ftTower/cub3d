@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   hooks.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/05 18:08:01 by marvin            #+#    #+#             */
+/*   Updated: 2024/06/05 18:08:01 by marvin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
@@ -16,19 +28,14 @@ void	img_draw_chunk(t_data *data, t_img *img, ssize_t h, ssize_t w)
 {
 	ssize_t	h_c;
 	ssize_t	w_c;
-	ssize_t	start_h;
-	ssize_t	start_w;
 	int		chunk_size;
 
 	chunk_size = data->win->chunk_size;
-	start_h = h * chunk_size + data->win->offset_y;
-	start_w = w * chunk_size + data->win->offset_x;
-	h_c = start_h;
-
-	while (h_c < start_h + chunk_size - 1)
+	h_c = (h * chunk_size + data->win->offset_y);
+	while (h_c < (h * chunk_size + data->win->offset_y) + chunk_size - 1)
 	{
-		w_c = start_w;
-		while (w_c < start_w + chunk_size - 1)
+		w_c = w * chunk_size + data->win->offset_x;
+		while (w_c < (w * chunk_size + data->win->offset_x) + chunk_size - 1)
 		{
 			if (h_c >= 0 && h_c < img->height && w_c >= 0 && w_c < img->width)
 			{

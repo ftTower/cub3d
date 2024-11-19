@@ -1,4 +1,4 @@
-R 1000 1000
+R 500 500
 NO maps/textures/test/path_to_the_north_texture.xpm
 SO maps/textures/test/path_to_the_south_texture.xpm
 WE maps/textures/test/path_to_the_west_texture.xpm

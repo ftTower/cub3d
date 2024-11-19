@@ -1,4 +1,3 @@
-
 SRC_DIR		=	src
 GNL_DIR		= 	getNextLine
 BUILD_DIR	=	build

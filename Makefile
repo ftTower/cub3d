@@ -15,8 +15,11 @@ SRC			=	$(SRC_DIR)/main.c\
 				$(SRC_DIR)/img/drawing.c \
 				$(SRC_DIR)/raycasting/raycasting.c \
 				$(SRC_DIR)/raycasting/textures.c \
+				$(SRC_DIR)/raycasting/raytures.c \
 				$(SRC_DIR)/free.c \
+				$(SRC_DIR)/free2.c \
 				$(SRC_DIR)/utils.c \
+				$(SRC_DIR)/utils2.c \
 				$(SRC_DIR)/print.c \
 				$(REF_DIR)/split.c \
 				$(REF_DIR)/t_file_printer.c \
@@ -27,6 +30,7 @@ SRC			=	$(SRC_DIR)/main.c\
 				$(SRC_DIR)/$(LOOP_DIR)/key.c \
 				$(SRC_DIR)/$(INIT_DIR)/map_parse.c \
 				$(SRC_DIR)/$(INIT_DIR)/config.c \
+				$(SRC_DIR)/$(INIT_DIR)/config2.c \
 				$(SRC_DIR)/$(INIT_DIR)/map.c \
 				$(GNL_DIR)/get_next_line_utils.c \
 				$(GNL_DIR)/get_next_line.c \

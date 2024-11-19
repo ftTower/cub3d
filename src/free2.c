@@ -12,15 +12,34 @@
 
 #include "cub3d.h"
 
-int	main(int argc, char **argv)
+void	t_rfree(char **ptr)
 {
-	t_data	data;
+	ssize_t	index;
 
-	if (argc != 2)
-		return (1);
-	else if (data_init(&data, argv[1]))
-		return (data_destructor(&data), 1);
-	else
-		game(&data);
-	return (data_destructor(&data), 0);
+	index = -1;
+	while (ptr[++index])
+		free(ptr[index]);
+	if (ptr)
+		free(ptr);
+}
+
+void	t_free(void *ptr)
+{
+	if (ptr)
+		free(ptr);
+}
+
+void	win_destructor(t_win *win)
+{
+	if (!win)
+		return ;
+	if (win->win_ptr)
+		mlx_destroy_window(win->mlx_ptr, win->win_ptr);
+	if (win->mlx_ptr)
+	{
+		mlx_destroy_display(win->mlx_ptr);
+		free(win->mlx_ptr);
+	}
+	t_free(win->keys);
+	t_free(win);
 }

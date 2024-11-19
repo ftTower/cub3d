@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   hooks.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/05 18:08:01 by marvin            #+#    #+#             */
+/*   Updated: 2024/06/05 18:08:01 by marvin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 int	rgb_to_hex(int r, int g, int b)
@@ -16,16 +28,12 @@ int	get_color_texture(t_file *texture, int x, int y)
 	return (color);
 }
 
-t_file	*get_texture(t_data *data, t_dir dir)
+void	vertical_draw_texture2(int *tex_y, t_file *texture)
 {
-	if (dir == DIR_EAST)
-		return (data->config->EA);
-	else if (dir == DIR_WEAST)
-		return (data->config->WE);
-	else if (dir == DIR_NORTH)
-		return (data->config->NO);
-	else
-		return (data->config->SO);
+	if (*tex_y < 0)
+		*tex_y = 0;
+	if (*tex_y >= texture->img->height)
+		*tex_y = texture->img->height - 1;
 }
 
 void	vertical_draw_texture(t_data *data, t_img *img, t_ray *r_c)
@@ -47,8 +55,7 @@ void	vertical_draw_texture(t_data *data, t_img *img, t_ray *r_c)
 	{
 		tex_y = (int)(((index - r_c->start) / \
 			wall_height) * texture->img->height);
-		tex_y = tex_y < 0 ? 0 : tex_y;
-		tex_y = tex_y >= texture->img->height ? texture->img->height - 1 : tex_y;
+		vertical_draw_texture2(&tex_y, texture);
 		my_mlx_pixel_put(img, r_c->w_line, (int)index,
 			get_color_texture(texture, tex_x, tex_y));
 		index++;
