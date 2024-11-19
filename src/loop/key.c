@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hooks.c                                            :+:      :+:    :+:   */
+/*   key.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 18:08:01 by marvin            #+#    #+#             */
-/*   Updated: 2024/06/05 18:08:01 by marvin           ###   ########.fr       */
+/*   Updated: 2024/11/19 21:47:26 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,20 @@
 void	update_player(t_data *data)
 {
 	if (data->win->keys[KEY_UP] && (int)(data->player->y) >= 0
-			&& data->map->chunks[(int)(data->player->y - 0.3)]
-			[(int)(data->player->x)].type != CHUNK_WALL)
+		&& data->map->chunks[(int)(data->player->y
+			- 0.3)][(int)(data->player->x)].type != CHUNK_WALL)
 		data->player->y -= 0.08;
 	if (data->win->keys[KEY_DOWN] && (int)(data->player->y) < data->map->h
-			&& data->map->chunks[(int)(data->player->y + 0.3)]
-			[(int)(data->player->x)].type != CHUNK_WALL)
+		&& data->map->chunks[(int)(data->player->y
+			+ 0.3)][(int)(data->player->x)].type != CHUNK_WALL)
 		data->player->y += 0.08;
 	if (data->win->keys[KEY_LEFT] && (int)(data->player->x) >= 0
-			&& data->map->chunks[(int)(data->player->y)]
-			[(int)(data->player->x - 0.3)].type != CHUNK_WALL)
+		&& data->map->chunks[(int)(data->player->y)][(int)(data->player->x
+			- 0.3)].type != CHUNK_WALL)
 		data->player->x -= 0.08;
 	if (data->win->keys[KEY_RIGHT] && (int)(data->player->x) < data->map->l
-			&& data->map->chunks[(int)(data->player->y)]
-			[(int)(data->player->x + 0.3)].type != CHUNK_WALL)
+		&& data->map->chunks[(int)(data->player->y)][(int)(data->player->x
+			+ 0.3)].type != CHUNK_WALL)
 		data->player->x += 0.08;
 	if (data->win->keys[KEY_ARROW_LEFT])
 		data->player->angle -= 2.0;
@@ -77,7 +77,7 @@ int	key_press(int keycode, t_data *data)
 		data->win->keys[KEY_ARROW_LEFT] = true;
 	if (keycode == 65363)
 		data->win->keys[KEY_ARROW_RIGHT] = true;
-	if (keycode == 65472)
+	if (keycode == 65472 || keycode == 269025098)
 	{
 		if (!data->win->debug_view)
 			data->win->debug_view = true;
