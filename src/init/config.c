@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 18:08:01 by marvin            #+#    #+#             */
-/*   Updated: 2024/11/19 21:11:36 by tauer            ###   ########.fr       */
+/*   Updated: 2024/11/19 21:43:23 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,10 @@ bool	config_init(t_data *data, char *filepath)
 	if (!data->config)
 		return (print_checkpoint("CONFIG", false, true), true);
 	data->config->map = t_file_get(filepath, STATUT_READ);
+	data->config->ea = NULL;
+	data->config->we = NULL;
+	data->config->so = NULL;
+	data->config->no = NULL;
 	if (!data->config->map || rgb_init(t_file_get_patern(data->config->map,
 				"C"), &data->config->c_r, &data->config->c_g,
 			&data->config->c_b) || rgb_init(t_file_get_patern(data->config->map,
