@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 18:08:01 by marvin            #+#    #+#             */
-/*   Updated: 2024/11/19 19:49:44 by tauer            ###   ########.fr       */
+/*   Updated: 2024/11/19 21:12:30 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ bool	map_size(t_map *map, char *map_line)
 bool	map_init(t_data *data)
 {
 	char	*map;
+
 	data->map = malloc(sizeof(t_map));
 	if (!data->map)
 		return (print_checkpoint("MAP", false, false), true);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hooks.c                                            :+:      :+:    :+:   */
+/*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 18:08:01 by marvin            #+#    #+#             */
-/*   Updated: 2024/06/05 18:08:01 by marvin           ###   ########.fr       */
+/*   Updated: 2024/11/19 21:11:58 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	get_ray_dir(t_ray *r_c)
 void	handle_pov(t_data *data, t_ray *r_c, t_img *img)
 {
 	if (r_c->cur_dist != 0)
-		r_c->wall_height = (data->config->r_h /
+		r_c->wall_height = (data->config->r_h / \
 				(r_c->cur_dist * cosf(r_c->cur_angle * (M_PI / 180))));
 	else
 		r_c->wall_height = data->config->r_h;

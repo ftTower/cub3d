@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 18:08:01 by marvin            #+#    #+#             */
-/*   Updated: 2024/11/19 19:56:15 by tauer            ###   ########.fr       */
+/*   Updated: 2024/11/19 21:11:36 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,44 +54,15 @@ bool	win_init(t_data *data)
 	data->win->mlx_ptr = mlx_init();
 	data->win->win_ptr = mlx_new_window(data->win->mlx_ptr, data->config->r_w,
 			data->config->r_h, "CUB3D");
-	return (data->win->map_view = false,
-		data->win->debug_view = false, data->win->chunk_size = 20, false);
-}
-
-bool	identify_starting_angle(t_data *data, char *map)
-{
-	ssize_t	index;
-	bool	checker;
-
-	checker = false;
-	index = -1;
-	while (map[++index])
-	{
-		if (map[index] == 'N' || map[index] == 'S' ||
-			map[index] == 'E' || map[index] == 'W')
-		{
-			if (checker)
-				return (true);
-			checker = true;
-		}
-		if (map[index] == 'N')
-			data->player->angle = 270.0f;
-		else if (map[index] == 'S')
-			data->player->angle = 90.0f;
-		else if (map[index] == 'W')
-			data->player->angle = 180.0f;
-		else if (map[index] == 'E')
-			data->player->angle = 0.0f;
-
-	}
-	return (false);
+	return (data->win->map_view = false, data->win->debug_view = false,
+		data->win->chunk_size = 20, false);
 }
 
 bool	player_init(t_data *data)
 {
 	data->player = malloc(sizeof(t_player));
 	if (!data->player)
-		return (true);	
+		return (true);
 	data->player->x = 0;
 	data->player->y = 0;
 	if (identify_starting_angle(data, data->map->origin))

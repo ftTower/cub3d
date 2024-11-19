@@ -8,6 +8,7 @@ SRC			=	$(SRC_DIR)/split.c\
 				$(SRC_DIR)/t_file_printer.c\
 				$(SRC_DIR)/t_file_utils.c\
 				$(SRC_DIR)/t_file.c\
+				$(SRC_DIR)/t_lines.c\
 				$(SRC_DIR)/t_lines_utils.c\
 				$(GNL_DIR)/get_next_line_utils.c\
 				$(GNL_DIR)/get_next_line.c\

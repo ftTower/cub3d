@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hooks.c                                            :+:      :+:    :+:   */
+/*   raytures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 18:08:01 by marvin            #+#    #+#             */
-/*   Updated: 2024/06/05 18:08:01 by marvin           ###   ########.fr       */
+/*   Updated: 2024/11/19 21:10:08 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 t_file	*get_texture(t_data *data, t_dir dir)
 {
 	if (dir == DIR_EAST)
-		return (data->config->EA);
+		return (data->config->ea);
 	else if (dir == DIR_WEAST)
-		return (data->config->WE);
+		return (data->config->we);
 	else if (dir == DIR_NORTH)
-		return (data->config->NO);
+		return (data->config->no);
 	else
-		return (data->config->SO);
+		return (data->config->so);
 }
 
 void	drunk_mode(t_data *data)

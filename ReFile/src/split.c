@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hooks.c                                            :+:      :+:    :+:   */
+/*   split.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 18:08:01 by marvin            #+#    #+#             */
-/*   Updated: 2024/06/05 18:08:01 by marvin           ###   ########.fr       */
+/*   Updated: 2024/11/19 20:56:59 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,44 +95,4 @@ char	**ft_split(char const *s, char c)
 		return (NULL);
 	tab_split = tab_tab_split(s, c);
 	return (tab_split);
-}
-
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
-{
-	while (n > 0)
-	{
-		if (*s1 != *s2 || *s1 == '\0' || *s2 == '\0')
-			return ((unsigned char)*s1 - (unsigned char)*s2);
-		s1++;
-		s2++;
-		n--;
-	}
-	return (0);
-}
-
-char	*ft_strjoin(char const *s1, char const *s2)
-{
-	char	*str;
-	char	*result;
-	size_t	len1;
-	size_t	len2;
-
-	len1 = (s1 != NULL) ? f_strlen(s1) : 0;
-	len2 = (s2 != NULL) ? f_strlen(s2) : 0;
-
-	str = (char *)malloc(sizeof(char) * (len1 + len2 + 1));
-	if (!str)
-		return (NULL);
-
-	result = str;
-
-	if (s1 != NULL)
-		while (*s1)
-			*str++ = *s1++;
-	if (s2 != NULL)
-		while (*s2)
-			*str++ = *s2++;
-	*str = '\0';
-
-	return (result);
 }

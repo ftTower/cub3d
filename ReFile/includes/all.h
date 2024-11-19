@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hooks.c                                            :+:      :+:    :+:   */
+/*   all.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 18:08:01 by marvin            #+#    #+#             */
-/*   Updated: 2024/06/05 18:08:01 by marvin           ###   ########.fr       */
+/*   Updated: 2024/11/19 20:06:41 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ALL_H
 # define ALL_H
 
-#include "lib.h"
-#include "struct.h"
-#include "def.h"
-#include "../gnl/get_next_line.h"
+# include "lib.h"
+# include "struct.h"
+# include "../gnl/get_next_line.h"
+# include "def.h"
 
 #endif

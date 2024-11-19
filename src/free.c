@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 18:08:01 by marvin            #+#    #+#             */
-/*   Updated: 2024/11/19 19:50:05 by tauer            ###   ########.fr       */
+/*   Updated: 2024/11/19 21:10:35 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ void	t_file_destructor(t_data *data, t_file *file)
 
 void	config_destructor(t_data *data)
 {
-	t_file_destructor(data, data->config->NO);
-	t_file_destructor(data, data->config->SO);
-	t_file_destructor(data, data->config->EA);
-	t_file_destructor(data, data->config->WE);
+	t_file_destructor(data, data->config->no);
+	t_file_destructor(data, data->config->so);
+	t_file_destructor(data, data->config->ea);
+	t_file_destructor(data, data->config->we);
 	t_file_del(data->config->map);
 	t_free(data->config);
 }

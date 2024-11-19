@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hooks.c                                            :+:      :+:    :+:   */
+/*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 18:08:01 by marvin            #+#    #+#             */
-/*   Updated: 2024/06/05 18:08:01 by marvin           ###   ########.fr       */
+/*   Updated: 2024/11/19 20:00:01 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,61 +15,60 @@
 
 typedef struct s_img
 {
-    void    *img;          // Pointeur vers l'image MLX
-    char    *addr;         // Adresse de la mémoire de l'image
-    int     bits_per_pixel; // Nombre de bits par pixel
-    int     line_length;    // Taille d'une ligne de l'image en mémoire
-    int     endian;         // Endian (ordre des octets)
-    int     width;          // Largeur de l'image
-    int     height;         // Hauteur de l'image
-}               t_img;
+	void			*img;
+	char			*addr;
+	int				bits_per_pixel;
+	int				line_length;
+	int				endian;
+	int				width;
+	int				height;
+}					t_img;
 
-typedef enum   e_statut
+typedef enum e_statut
 {
-    STATUT_READ,
-    STATUT_WRITE,
-    STATUT_ERROR,
-    STATUT_UNOPEN,
-}   t_statut;
+	STATUT_READ,
+	STATUT_WRITE,
+	STATUT_ERROR,
+	STATUT_UNOPEN,
+}					t_statut;
 
-typedef enum    e_print
+typedef enum e_print
 {
-    PRINT_FULL,
-    PRINT_MEDIUM,
-    PRINT_LIGHT,
-}   t_print;
+	PRINT_FULL,
+	PRINT_MEDIUM,
+	PRINT_LIGHT,
+}					t_print;
 
 typedef struct s_line
 {
-    char *content;
-    ssize_t pos;
+	char			*content;
+	ssize_t			pos;
 
-    struct s_line *next;
-}   t_line;
+	struct s_line	*next;
+}					t_line;
 
 typedef struct s_file
 {
-    char *path;
-    int fd;
+	char			*path;
+	int				fd;
 
-    t_line *lines;
-    
-    t_statut statut;
+	t_line			*lines;
 
-    t_img   *img;
-    ssize_t nb_line;
-    ssize_t pos;
+	t_statut		statut;
 
-    void    *mlx_img;
-    struct s_file *next;
-}  t_file;
+	t_img			*img;
+	ssize_t			nb_line;
+	ssize_t			pos;
+
+	void			*mlx_img;
+	struct s_file	*next;
+}					t_file;
 
 typedef struct s_binder
 {
-    char   *name;
-    t_file *files;
+	char			*name;
+	t_file			*files;
 
-
-} t_binder;
+}					t_binder;
 
 #endif

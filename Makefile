@@ -24,6 +24,8 @@ SRC			=	$(SRC_DIR)/main.c\
 				$(REF_DIR)/split.c \
 				$(REF_DIR)/t_file_printer.c \
 				$(REF_DIR)/t_file_utils.c \
+				$(REF_DIR)/t_lines.c \
+				$(REF_DIR)/t_print_utils.c \
 				$(REF_DIR)/t_file.c \
 				$(REF_DIR)/t_lines_utils.c \
 				$(SRC_DIR)/$(LOOP_DIR)/game.c \
