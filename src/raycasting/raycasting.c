@@ -6,18 +6,17 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 18:08:01 by marvin            #+#    #+#             */
-/*   Updated: 2024/11/19 21:11:58 by tauer            ###   ########.fr       */
+/*   Updated: 2024/11/19 21:34:07 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	calculate_end_ray(t_data *data, float *end_x, float *end_y,
-	float *angle, float angle_incr, float cur_dist)
+void	calculate_end_ray(t_data *data, t_ray *r_c, float *angle)
 {
-	*angle = (data->player->angle + angle_incr) * M_PI / 180.0;
-	*end_x = data->player->x + cur_dist * cos(*angle);
-	*end_y = data->player->y + cur_dist * sin(*angle);
+	*angle = (data->player->angle + r_c->cur_angle) * M_PI / 180.0;
+	r_c->end_x = data->player->x + r_c->cur_dist * cos(*angle);
+	r_c->end_y = data->player->y + r_c->cur_dist * sin(*angle);
 }
 
 void	get_ray_dist(t_data *data, t_img *img, t_ray *r_c)
@@ -29,8 +28,7 @@ void	get_ray_dist(t_data *data, t_img *img, t_ray *r_c)
 	r_c->cur_dist = 0.0f;
 	while (r_c->cur_dist < 50.0f)
 	{
-		calculate_end_ray(data, &r_c->end_x, &r_c->end_y,
-			&angle, r_c->cur_angle, r_c->cur_dist);
+		calculate_end_ray(data, r_c, &angle);
 		if (r_c->end_x < 0.0f || r_c->end_y < 0.0f
 			|| r_c->end_x > data->config->r_w || r_c->end_y > data->config->r_h)
 			break ;
@@ -61,8 +59,8 @@ void	get_ray_dir(t_ray *r_c)
 void	handle_pov(t_data *data, t_ray *r_c, t_img *img)
 {
 	if (r_c->cur_dist != 0)
-		r_c->wall_height = (data->config->r_h / \
-				(r_c->cur_dist * cosf(r_c->cur_angle * (M_PI / 180))));
+		r_c->wall_height = (data->config->r_h / (r_c->cur_dist
+					* cosf(r_c->cur_angle * (M_PI / 180))));
 	else
 		r_c->wall_height = data->config->r_h;
 	r_c->start = (data->config->r_h / 2) - (r_c->wall_height / 2);

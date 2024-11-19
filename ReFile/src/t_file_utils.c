@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 18:08:01 by marvin            #+#    #+#             */
-/*   Updated: 2024/11/19 20:55:54 by tauer            ###   ########.fr       */
+/*   Updated: 2024/11/19 21:25:16 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,12 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	size_t	len1;
 	size_t	len2;
 
-	len1 = (s1 != NULL) ? f_strlen(s1) : 0;
-	len2 = (s2 != NULL) ? f_strlen(s2) : 0;
+	len1 = 0;
+	len2 = 0;
+	if (s1)
+		len1 = f_strlen(s1);
+	if (s2)
+		len2 = f_strlen(s2);
 	str = (char *)malloc(sizeof(char) * (len1 + len2 + 1));
 	if (!str)
 		return (NULL);

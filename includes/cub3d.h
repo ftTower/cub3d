@@ -6,7 +6,7 @@
 /*   By: tauer <tauer@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 18:08:01 by marvin            #+#    #+#             */
-/*   Updated: 2024/11/19 21:09:34 by tauer            ###   ########.fr       */
+/*   Updated: 2024/11/19 21:33:25 by tauer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,8 +190,6 @@ void				img_destructor(t_win *win, t_img *img);
 void				handle_raycasting(t_data *data, t_img *img);
 void				img_put_num(t_data *data, ssize_t w, ssize_t h,
 						ssize_t num);
-void				draw_line(t_data *data, t_img *img, int x0, int y0, int x1,
-						int y1, int color);
 t_ray				*ray_new(t_player *player);
 void				get_ray_dist(t_data *data, t_img *img, t_ray *rc);
 
