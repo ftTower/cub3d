@@ -38,8 +38,8 @@ Cub3D est un moteur 3D basé sur la technique du raycasting, développé dans le
    cd Cub3D && make minlibx && make
    ./cub3d maps/VanGogh.cub
   ```
-![Cub3D](https://github.com/ftTower/cub3d/blob/main/assets/debugPic.png)
 
+![Cub3D](https://github.com/ftTower/cub3d/blob/main/assets/debugPic.png)
 # Commandes de base
 - **Déplacement** : Utilisez les touches directionnelles ou les touches W, A, S, D.
 - **Rotation** : Contrôlez la rotation via les flèches gauche/droite.
