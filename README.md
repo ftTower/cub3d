@@ -30,7 +30,7 @@ Cub3D est un moteur 3D basé sur la technique du raycasting, développé dans le
 ### installation
    ```bash
    git clone https://github.com/ftTower/Cub3D.git
-   cd Cub3D && make minilibx && make
+   cd Cub3D && make minlibx && make
    ./cub3d maps/VanGogh.cub
   ```
    
