@@ -10,9 +10,6 @@ Cub3D est un moteur 3D basé sur la technique du raycasting, développé dans le
 - [Installation](#installation)
 - [Utilisation](#utilisation)
 - [Configuration](#configuration)
-- [Contributions](#contributions)
-- [Crédits](#crédits)
-- [Licence](#licence)
 
 ![Cub3D](https://github.com/ftTower/cub3d/blob/main/assets/mapPic.png)
 
