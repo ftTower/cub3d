@@ -48,4 +48,5 @@ Le fichier de configuration (extension .cub) doit définir :
 - **Couleurs** : Définition des couleurs pour le sol et le plafond.
 - **Carte** : La représentation 2D de la carte, où 1 représente un mur et 0 un espace libre.
 
+voir exemple ci dessous : 
 [VanGogh.cub](https://github.com/ftTower/cub3d/blob/main/maps/VanGogh.cub)
