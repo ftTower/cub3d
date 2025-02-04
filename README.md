@@ -33,4 +33,18 @@ Cub3D est un moteur 3D basé sur la technique du raycasting, développé dans le
    cd Cub3D && make minlibx && make
    ./cub3d maps/VanGogh.cub
   ```
-   
+
+# Commandes de base
+- **Déplacement** : Utilisez les touches directionnelles ou les touches W, A, S, D.
+- **Rotation** : Contrôlez la rotation via les flèches gauche/droite.
+- **Quitter** : Appuyez sur ESC pour sortir du programme.
+- **Carte** : Appuyez sur **M** pour afficher la carte.
+- **Mode Debug** : Appuyez sur **F3** pour activer ou désactiver le mode debug.
+
+# Configuration
+Le fichier de configuration (extension .cub) doit définir :
+
+- **Textures** : Chemins vers les fichiers de texture pour chaque mur (Nord, Sud, Est, Ouest).
+- **Couleurs** : Définition des couleurs pour le sol et le plafond.
+- **Carte** : La représentation 2D de la carte, où 1 représente un mur et 0 un espace libre.
+
