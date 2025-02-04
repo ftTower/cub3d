@@ -1,8 +1,8 @@
 # Cub3D
 
-![Cub3D](https://github.com/ftTower/cub3d/blob/main/assets/gamePic.png)
-
 Cub3D est un moteur 3D basé sur la technique du raycasting, développé dans le cadre du projet 42 Paris. Il permet de transformer une carte 2D en une expérience immersive en 3D grâce à une gestion dynamique des collisions et à l'application de textures.
+
+![Cub3D](https://github.com/ftTower/cub3d/blob/main/assets/gamePic.png)
 
 ## Table des matières
 
@@ -29,7 +29,9 @@ Cub3D est un moteur 3D basé sur la technique du raycasting, développé dans le
 - La bibliothèque [MiniLibX](https://github.com/42Paris/minilibx-linux) (ou la version adaptée à votre système)
 - [Make](https://www.gnu.org/software/make/)
 
-### installation
+![Cub3D](https://github.com/ftTower/cub3d/blob/main/assets/mapPic.png)
+
+### utilisation
    ```bash
    git clone https://github.com/ftTower/Cub3D.git
    cd Cub3D && make minlibx && make
@@ -42,6 +44,8 @@ Cub3D est un moteur 3D basé sur la technique du raycasting, développé dans le
 - **Quitter** : Appuyez sur ESC pour sortir du programme.
 - **Carte** : Appuyez sur **M** pour afficher la carte.
 - **Mode Debug** : Appuyez sur **F3** pour activer ou désactiver le mode debug.
+- **Zoomer** : Appuyez sur **+** pour zoomer.
+- **Dézoomer** : Appuyez sur **-** pour dézoomer.
 
 # Configuration
 Le fichier de configuration (extension .cub) doit définir :
@@ -52,3 +56,6 @@ Le fichier de configuration (extension .cub) doit définir :
 
 voir exemple ci dessous : 
 [VanGogh.cub](https://github.com/ftTower/cub3d/blob/main/maps/VanGogh.cub)
+
+![Cub3D](https://github.com/ftTower/cub3d/blob/main/assets/debugPic.png)
+
