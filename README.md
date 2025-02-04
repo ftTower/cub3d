@@ -1,5 +1,7 @@
 # Cub3D
 
+![Cub3D](https://github.com/ftTower/cub3d/blob/main/assets/gamePic.png)
+
 Cub3D est un moteur 3D basé sur la technique du raycasting, développé dans le cadre du projet 42 Paris. Il permet de transformer une carte 2D en une expérience immersive en 3D grâce à une gestion dynamique des collisions et à l'application de textures.
 
 ## Table des matières
