@@ -18,14 +18,14 @@ Cub3D est un moteur 3D basé sur la technique du raycasting, développé dans le
 - **Raycasting** : Génère une vue 3D à partir d'une carte 2D.
 - **Gestion des collisions** : Détecte et gère dynamiquement les collisions pour une navigation réaliste.
 - **Textures** : Applique des textures aux murs et surfaces pour renforcer l'immersion.
-- **Navigation fluide** : Déplacement et rotation optimisés via le clavier (et éventuellement la souris).
+- **Navigation fluide** : Déplacement et rotation optimisés via le clavier.
 
 ## Installation
 
 ### Prérequis
 
 - Un compilateur C (gcc, clang, etc.)
-- La bibliothèque [MiniLibX](https://github.com/42Paris/minilibx-linux) (ou la version adaptée à votre système)
+- La bibliothèque [MiniLibX](https://github.com/42Paris/minilibx-linux)
 - [Make](https://www.gnu.org/software/make/)
 
 
