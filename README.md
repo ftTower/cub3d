@@ -2,9 +2,9 @@
 
 <div align="center">
 
-**Un moteur de rendu 3D inspiré de Wolfenstein 3D**
+**A 3D rendering engine inspired by Wolfenstein 3D**
 
-*Projet développé dans le cadre du cursus 42 Paris*
+*Project developed as part of the 42 Paris curriculum*
 
 [![42 Project](https://img.shields.io/badge/42-Project-00babc?style=flat-square&logo=42)](https://42.fr)
 [![Language](https://img.shields.io/badge/Language-C-blue?style=flat-square&logo=c)](https://en.wikipedia.org/wiki/C_(programming_language))
@@ -14,45 +14,45 @@
 
 ---
 
-## 📖 À propos
+## 📖 About
 
-**Cub3D** est un moteur 3D basé sur la technique du **raycasting**, la même technologie utilisée dans le légendaire Wolfenstein 3D. Ce projet transforme une carte 2D en une expérience immersive en 3D grâce à une gestion dynamique des collisions et à l'application de textures personnalisées.
+**Cub3D** is a 3D engine based on the **raycasting** technique, the same technology used in the legendary Wolfenstein 3D. This project transforms a 2D map into an immersive 3D experience through dynamic collision management and custom texture application.
 
-Le raycasting simule une vue 3D en lançant des rayons depuis la position du joueur pour calculer les distances aux murs, créant ainsi une illusion de profondeur sans nécessiter de réel moteur 3D.
+Raycasting simulates a 3D view by casting rays from the player's position to calculate distances to walls, creating an illusion of depth without requiring a real 3D engine.
 
 ![Cub3D Gameplay](https://github.com/ftTower/cub3d/blob/main/assets/gamePic.png)
 
 ---
 
-## 📑 Table des matières
+## 📑 Table of Contents
 
-- [Fonctionnalités](#-fonctionnalités)
+- [Features](#-features)
 - [Technologies](#-technologies)
 - [Installation](#-installation)
-- [Utilisation](#-utilisation)
-- [Commandes](#-commandes)
+- [Usage](#-usage)
+- [Controls](#-controls)
 - [Configuration](#-configuration)
-- [Architecture du projet](#-architecture-du-projet)
-- [Auteurs](#-auteurs)
+- [Project Architecture](#-project-architecture)
+- [Authors](#-authors)
 
 ---
 
-## ✨ Fonctionnalités
+## ✨ Features
 
-### Rendu graphique
-- ⚡ **Raycasting en temps réel** : Génère une vue 3D fluide à partir d'une carte 2D
-- 🎨 **Système de textures** : Application de textures personnalisées pour chaque direction (Nord, Sud, Est, Ouest)
-- 🌈 **Couleurs configurables** : Sol et plafond personnalisables via RGB
+### Graphics Rendering
+- ⚡ **Real-time Raycasting**: Generates a smooth 3D view from a 2D map
+- 🎨 **Texture System**: Custom texture application for each direction (North, South, East, West)
+- 🌈 **Configurable Colors**: Customizable floor and ceiling via RGB
 
 ### Gameplay
-- 🎯 **Détection de collisions** : Système de collision précis pour une navigation réaliste
-- 🧭 **Navigation fluide** : Déplacements et rotations optimisés
-- 🗺️ **Mini-carte interactive** : Affichage de la position du joueur en temps réel
+- 🎯 **Collision Detection**: Precise collision system for realistic navigation
+- 🧭 **Smooth Navigation**: Optimized movement and rotation
+- 🗺️ **Interactive Mini-map**: Real-time player position display
 
-### Outils de développement
-- 🐛 **Mode Debug (F3)** : Affiche les informations de débogage (FPS, position, direction)
-- 🔍 **Zoom dynamique** : Contrôle du niveau de zoom sur la mini-carte
-- 📊 **Affichage des performances** : Suivi en temps réel des performances
+### Development Tools
+- 🐛 **Debug Mode (F3)**: Displays debugging information (FPS, position, direction)
+- 🔍 **Dynamic Zoom**: Mini-map zoom level control
+- 📊 **Performance Display**: Real-time performance monitoring
 
 ![Cub3D Map View](https://github.com/ftTower/cub3d/blob/main/assets/mapPic.png)
 
@@ -60,100 +60,100 @@ Le raycasting simule une vue 3D en lançant des rayons depuis la position du jou
 
 ## 🛠️ Technologies
 
-- **Langage** : C (Norme 42)
-- **Bibliothèque graphique** : [MiniLibX](https://github.com/42Paris/minilibx-linux)
-- **Build system** : GNU Make
-- **Compilation** : GCC avec flags `-Wall -Wextra -Werror`
-- **Mathématiques** : Bibliothèque math.h pour les calculs trigonométriques
+- **Language**: C (42 Standard)
+- **Graphics Library**: [MiniLibX](https://github.com/42Paris/minilibx-linux)
+- **Build System**: GNU Make
+- **Compilation**: GCC with flags `-Wall -Wextra -Werror`
+- **Mathematics**: math.h library for trigonometric calculations
 
 ---
 
 ## 📥 Installation
 
-### Prérequis
+### Prerequisites
 
-Assurez-vous d'avoir les dépendances suivantes installées sur votre système Linux :
+Make sure you have the following dependencies installed on your Linux system:
 
 ```bash
-# Compilateur C
+# C Compiler
 sudo apt-get install gcc make
 
-# Dépendances MiniLibX
+# MiniLibX Dependencies
 sudo apt-get install libx11-dev libxext-dev libbsd-dev
 ```
 
 ### Compilation
 
 ```bash
-# Cloner le dépôt
+# Clone the repository
 git clone https://github.com/ftTower/Cub3D.git
 cd Cub3D
 
-# Compiler MiniLibX
+# Compile MiniLibX
 make minlibx
 
-# Compiler le projet
+# Compile the project
 make
 
-# Lancer le programme avec une carte
+# Run the program with a map
 ./cub3d maps/VanGogh.cub
 ```
 
-### Compilation bonus
+### Bonus Compilation
 
 ```bash
-make bonus  # Compile avec les fonctionnalités bonus (si disponibles)
-make clean  # Supprime les fichiers objets
-make fclean # Supprime les fichiers objets et l'exécutable
-make re     # Recompile complètement le projet
+make bonus  # Compile with bonus features (if available)
+make clean  # Remove object files
+make fclean # Remove object files and executable
+make re     # Fully recompile the project
 ```
 
 ---
 
-## 🎮 Utilisation
+## 🎮 Usage
 
-### Lancement rapide
+### Quick Start
 
 ```bash
-./cub3d <chemin_vers_carte.cub>
+./cub3d <path_to_map.cub>
 ```
 
-### Exemples
+### Examples
 
 ```bash
-# Carte Van Gogh (recommandée)
+# Van Gogh Map (recommended)
 ./cub3d maps/VanGogh.cub
 
-# Carte basique
+# Basic Map
 ./cub3d maps/file.cub
 ```
 
 ---
 
-## ⌨️ Commandes
+## ⌨️ Controls
 
-### Déplacements
-| Touche | Action |
+### Movement
+| Key | Action |
 |--------|--------|
-| `W` / `↑` | Avancer |
-| `S` / `↓` | Reculer |
-| `A` | Déplacement latéral gauche |
-| `D` | Déplacement latéral droit |
+| `W` / `↑` | Move Forward |
+| `S` / `↓` | Move Backward |
+| `A` | Strafe Left |
+| `D` | Strafe Right |
 
 ### Rotation
-| Touche | Action |
+| Key | Action |
 |--------|--------|
-| `←` | Rotation à gauche |
-| `→` | Rotation à droite |
+| `←` | Rotate Left |
+| `→` | Rotate Right |
 
 ### Interface
-| Touche | Action |
+| Key | Action |
 |--------|--------|
-| `M` | Afficher/Masquer la mini-carte |
-| `F3` | Activer/Désactiver le mode debug |
-| `+` | Zoomer sur la mini-carte |
-| `-` | Dézoomer sur la mini-carte |
-| `ESC` | Quitter le programme |
+| `M` | Show/Hide Mini-map |
+| `F3` | Enable/Disable Debug Mode |
+| `+` | Zoom In Mini-map |
+| `-` | Zoom Out Mini-map |
+| `ESC` | Exit Program |
 
 ![Cub3D Debug Mode](https://github.com/ftTower/cub3d/blob/main/assets/debugPic.png)
 
@@ -161,11 +161,11 @@ make re     # Recompile complètement le projet
 
 ## ⚙️ Configuration
 
-### Format du fichier .cub
+### .cub File Format
 
-Le fichier de configuration définit l'environnement du jeu. Il doit contenir :
+The configuration file defines the game environment. It must contain:
 
-#### 1. Textures des murs
+#### 1. Wall Textures
 ```
 NO ./path/to/north_texture.xpm
 SO ./path/to/south_texture.xpm
@@ -173,13 +173,13 @@ WE ./path/to/west_texture.xpm
 EA ./path/to/east_texture.xpm
 ```
 
-#### 2. Couleurs (format RGB)
+#### 2. Colors (RGB format)
 ```
-F 220,100,0    # Floor (Sol)
-C 225,30,0     # Ceiling (Plafond)
+F 220,100,0    # Floor
+C 225,30,0     # Ceiling
 ```
 
-#### 3. Carte
+#### 3. Map
 ```
 111111111111
 100000000001
@@ -188,25 +188,25 @@ C 225,30,0     # Ceiling (Plafond)
 111111111111
 ```
 
-### Caractères de la carte
-- `0` : Espace vide (navigable)
-- `1` : Mur
-- `N` / `S` / `E` / `W` : Position et orientation de départ du joueur
-  - **N** : Nord
-  - **S** : Sud
-  - **E** : Est
-  - **W** : Ouest
+### Map Characters
+- `0`: Empty space (navigable)
+- `1`: Wall
+- `N` / `S` / `E` / `W`: Player starting position and orientation
+  - **N**: North
+  - **S**: South
+  - **E**: East
+  - **W**: West
 
-### Règles de validation
-- ✅ La carte doit être entourée de murs (`1`)
-- ✅ Un seul joueur doit être présent
-- ✅ Tous les chemins de textures doivent être valides
-- ✅ Les couleurs doivent être au format RGB (0-255)
-- ✅ Les espaces vides doivent être fermés (pas d'ouverture vers le vide)
+### Validation Rules
+- ✅ The map must be surrounded by walls (`1`)
+- ✅ Only one player must be present
+- ✅ All texture paths must be valid
+- ✅ Colors must be in RGB format (0-255)
+- ✅ Empty spaces must be closed (no openings to the void)
 
-### Exemple de fichier
+### Example File
 
-Voir l'exemple complet : [VanGogh.cub](https://github.com/ftTower/cub3d/blob/main/maps/VanGogh.cub)
+See full example: [VanGogh.cub](https://github.com/ftTower/cub3d/blob/main/maps/VanGogh.cub)
 
 ```bash
 NO ./maps/textures/VanGogh/north.xpm
@@ -228,60 +228,60 @@ C 51,153,255
 
 ---
 
-## 🏗️ Architecture du projet
+## 🏗️ Project Architecture
 
 ```
 cub3d/
-├── src/                    # Code source principal
-│   ├── init/              # Initialisation et parsing
-│   │   ├── config.c       # Parsing de la configuration
-│   │   ├── map.c          # Parsing de la carte
-│   │   └── map_parse.c    # Validation de la carte
-│   ├── raycasting/        # Moteur de rendu
-│   │   ├── raycasting.c   # Algorithme DDA
-│   │   ├── textures.c     # Gestion des textures
-│   │   └── raytures.c     # Application des textures
-│   ├── loop/              # Boucle de jeu
-│   │   ├── game.c         # Boucle principale
-│   │   └── key.c          # Gestion des événements
-│   ├── img/               # Gestion graphique
-│   │   ├── img.c          # Manipulation d'images
-│   │   ├── drawing.c      # Fonctions de dessin
-│   │   └── put_string.c   # Affichage de texte
-│   ├── main.c             # Point d'entrée
-│   ├── free.c / free2.c   # Gestion de la mémoire
-│   └── utils.c / utils2.c # Fonctions utilitaires
-├── ReFile/                 # Bibliothèque de parsing
+├── src/                    # Main source code
+│   ├── init/              # Initialization and parsing
+│   │   ├── config.c       # Configuration parsing
+│   │   ├── map.c          # Map parsing
+│   │   └── map_parse.c    # Map validation
+│   ├── raycasting/        # Rendering engine
+│   │   ├── raycasting.c   # DDA Algorithm
+│   │   ├── textures.c     # Texture management
+│   │   └── raytures.c     # Texture application
+│   ├── loop/              # Game loop
+│   │   ├── game.c         # Main loop
+│   │   └── key.c          # Event handling
+│   ├── img/               # Graphics management
+│   │   ├── img.c          # Image manipulation
+│   │   ├── drawing.c      # Drawing functions
+│   │   └── put_string.c   # Text display
+│   ├── main.c             # Entry point
+│   ├── free.c / free2.c   # Memory management
+│   └── utils.c / utils2.c # Utility functions
+├── ReFile/                 # Parsing library
 │   ├── gnl/               # Get Next Line
-│   └── src/               # Utilitaires de fichiers
+│   └── src/               # File utilities
 ├── includes/              # Headers
-│   └── cub3d.h           # Définitions et structures
-├── maps/                  # Cartes de test
-│   └── textures/         # Textures XPM
-├── assets/                # Ressources (captures d'écran)
+│   └── cub3d.h           # Definitions and structures
+├── maps/                  # Test maps
+│   └── textures/         # XPM Textures
+├── assets/                # Resources (screenshots)
 └── Makefile              # Compilation
 
 ```
 
-### Concepts clés implémentés
+### Key Implemented Concepts
 
-- **Digital Differential Analyzer (DDA)** : Algorithme de raycasting pour détecter les intersections
-- **Gestion mémoire** : Allocation et libération propre des ressources
-- **Event loop** : Boucle de rendu et gestion des événements MiniLibX
-- **Texture mapping** : Projection de textures 2D sur les murs
-- **Collision detection** : Détection des collisions avec les murs
+- **Digital Differential Analyzer (DDA)**: Raycasting algorithm for intersection detection
+- **Memory Management**: Clean allocation and deallocation of resources
+- **Event Loop**: Rendering loop and MiniLibX event handling
+- **Texture Mapping**: Projection of 2D textures onto walls
+- **Collision Detection**: Wall collision detection
 
 ---
 
-## 👥 Auteurs
+## 👥 Authors
 
-Développé par [@ftTower](https://github.com/ftTower)
+Developed by [@ftTower](https://github.com/ftTower)
 
 ---
 
 <div align="center">
 
-**⭐ Si ce projet vous a plu, n'hésitez pas à lui donner une étoile ! ⭐**
+**⭐ If you liked this project, feel free to give it a star! ⭐**
 
 </div>
 
